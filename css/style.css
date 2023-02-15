@@ -1,5 +1,14 @@
 @import url("photographer.css");
 
+:root {
+    --primary-darkred: #901C1C;
+    --primary-moderatered: #D3573C;
+    --secondary-softred: #DB8876;
+    --secondary-darkgray: #525252;
+    --secondary-lightgray: #FAFAFA;
+    --secondary-darkred: #901C1C;
+}
+
 body {
     font-family: "DM Sans", sans-serif;
     margin: 0;
@@ -15,7 +24,7 @@ header {
 }
 
 h1 {
-    color: #901C1C;
+    color: var(--primary-darkred);
     margin-right: 100px;
 }
 
@@ -40,7 +49,7 @@ h1 {
 }
 
 .photographer_section article h2 {
-    color: #D3573C;
+    color: var(--primary-moderatered);
     font-size: 36px;
 }
 
