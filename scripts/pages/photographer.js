@@ -1,1 +1,1 @@
-//Mettre le code JavaScript lié à la page photographer.html
+// Récupère l'id du photographe passé dans l'URL
