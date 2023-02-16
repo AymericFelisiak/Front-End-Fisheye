@@ -1,10 +1,10 @@
 class photographerFactory {
-    constructor(data, type) {
+    constructor(data, medias, type) {
         if(type == 'index') {
             return new photographerIndexFactory(data);
         }
         if(type == 'profile') {
-            return new photographerProfileFactory(data);
+            return new photographerProfileFactory(data, medias);
         }
     }
 }
@@ -26,11 +26,14 @@ class photographerIndexFactory {
         img.setAttribute("class", "photographer_portrait")
         img.setAttribute("alt", name)
         const h2 = document.createElement( 'h2' );
+        h2.setAttribute("class", "photographer-name");
         h2.textContent = name;
         const h3 = document.createElement('h3');
         h3.textContent = city + ", " + country;
+        h3.setAttribute("class", "photographer-location");
         const h4 = document.createElement('h4');
         h4.textContent = tagline;
+        h4.setAttribute("class", "photographer-tagline");
         const p = document.createElement('p');
         p.textContent = price + "/jour";
         a.appendChild(img);
@@ -44,11 +47,21 @@ class photographerIndexFactory {
 }
 
 class photographerProfileFactory {
-    constructor(data) {
-        this.data = data;
+    constructor(photographerData, photographerMedias) {
+        this.photographerData = photographerData;
+        this.photographerMedias = photographerMedias;
     }
 
-    getProfileDOM() {
-
+    getProfileInformationsDOM() {
+        const {name, portrait , city, country, tagline} = this.photographerData;
+        const picture = `assets/photographers/${portrait}`;
+        const h2 = document.querySelector('.photographer-name');
+        h2.textContent = name;
+        const h3= document.querySelector('.photographer-location');
+        h3.textContent = city + ', ' + country;
+        const h4 = document.querySelector('.photographer-tagline');
+        h4.textContent = tagline;
+        const img = document.querySelector('.photographer-portrait');
+        img.setAttribute("src", picture);
     }
 }

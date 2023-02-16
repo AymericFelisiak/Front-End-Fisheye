@@ -45,9 +45,19 @@ async function getMedias() {
     return medias;
 }
 
+async function displayData(photographer, medias) {
+    const profileHeader = document.querySelector(".photograph-header");
+    const factory = new photographerFactory(photographer, medias, 'profile');
+    const profileHeaderInfos = factory.getProfileInformationsDOM();
+    const {div, button, img} = profileHeaderInfos;
+    console.log(profileHeaderInfos);
+    profileHeader.appendChild();
+}
+
 async function init() {
     const photographer  = await getPhotographer();
     const medias = await getMedias();
+    displayData(photographer, medias);
 }
 
 init();

@@ -58,23 +58,33 @@ h1 {
     text-decoration: none;
 }
 
-.photographer_section article a h2 {
+.photographer-name {
     color: var(--primary-moderatered);
-    font-size: 36px;
     font-weight: 400;
 }
 
-.photographer_section article h3 {
+.photographer-location {
     color: var(--secondary-darkred);
-    font-size: 13px;
     font-weight: 400;
+}
+
+.photographer-tagline {
+    color: var(--secondary-darkgray);
+    font-weight: 400;
+}
+
+.photographer_section article a .photographer-name {
+    font-size: 36px;
+}
+
+.photographer_section article .photographer-location {
+    font-size: 13px;
     margin-top: 3px;
 }
 
-.photographer_section article h4 {
+.photographer_section article .photographer-tagline {
     color: black;
     font-size: 10px;
-    font-weight: 400;
     margin-top: 3px;
 }
 

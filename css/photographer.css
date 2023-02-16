@@ -5,13 +5,40 @@
 .photograph-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: #FAFAFA;
+    border-radius: 5px;
     height: 300px;
     margin: 0 100px;
 }
 
+.photographer-portrait {
+    display: flex;
+    object-fit: cover;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin-right: 40px;
+}
+
 .photographer-informations {
     display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    line-height: 0;
+}
+
+.photographer-name {
+    font-size: 64px;
+    margin-bottom: 30px;
+}
+
+.photographer-location {
+    font-size: 24px;
+}
+
+.photographer-tagline {
+    font-size: 18px;
 }
 
 .contact_button {
