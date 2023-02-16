@@ -50,7 +50,6 @@ h1 {
 }
 
 .photographer_section article a {
-    justify-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,23 +94,10 @@ h1 {
     margin-top: 3px;
 }
 
-.photographer_section article a img {
-    height: 200px;
-    width: 200px;
-}
-
-.navbutton {
-    background-color: var(--primary-darkred);
-    border-radius: 5px;
-    color: white;
-}
-
-.contact:hover, .contact:active {
-    background-color: var(--secondary-softred);
-    color: black;
-}
-
-.photographer_portrait {
+.photographer-portrait {
+    display: flex;
     object-fit: cover;
     border-radius: 50%;
+    width: 200px;
+    height: 200px;
 }

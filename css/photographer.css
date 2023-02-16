@@ -2,7 +2,7 @@
     display: none;
 }
 
-.photograph-header {
+.photographer-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,12 +12,7 @@
     margin: 0 100px;
 }
 
-.photographer-portrait {
-    display: flex;
-    object-fit: cover;
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
+.photographer-header .photographer-portrait {
     margin-right: 40px;
 }
 
@@ -106,4 +101,15 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+.navbutton {
+    background-color: var(--primary-darkred);
+    border-radius: 5px;
+    color: white;
+}
+
+.contact:hover, .contact:active {
+    background-color: var(--secondary-softred);
+    color: black;
 }

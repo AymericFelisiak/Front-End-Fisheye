@@ -46,7 +46,7 @@ async function getMedias() {
 }
 
 async function displayData(photographer, medias) {
-    const profileHeader = document.querySelector(".photograph-header");
+    const profileHeader = document.querySelector(".photographer-header");
     const factory = new photographerFactory(photographer, medias, 'profile');
     const profileHeaderInfos = factory.getProfileInformationsDOM();
     const {div, button, img} = profileHeaderInfos;

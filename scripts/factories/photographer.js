@@ -23,7 +23,7 @@ class photographerIndexFactory {
         a.setAttribute("href", url);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture)
-        img.setAttribute("class", "photographer_portrait")
+        img.setAttribute("class", "photographer-portrait")
         img.setAttribute("alt", name)
         const h2 = document.createElement( 'h2' );
         h2.setAttribute("class", "photographer-name");
