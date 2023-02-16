@@ -1,12 +1,25 @@
-function photographerFactory(data) {
-    const { name, portrait, city, country, tagline, price  } = data;
+class photographerFactory {
+    constructor(data, type) {
+        if(type == 'index') {
+            return new photographerIndexFactory(data);
+        }
+        if(type == 'profile') {
+            return new photographerProfileFactory(data);
+        }
+    }
+}
 
-    const picture = `assets/photographers/${portrait}`;
+class photographerIndexFactory {
+    constructor(data) {
+        this.data = data;
+    }
 
-    function getUserCardDOM() {
+    getUserCardDOM() {
+        const { name, portrait, city, country, tagline, price, id  } = this.data;
+        const picture = `assets/photographers/${portrait}`;
         const article = document.createElement( 'article' );
         const a = document.createElement('a');
-        const url = "photographer.html?photographer_id=" + data.id;
+        const url = "photographer.html?photographer_id=" + id;
         a.setAttribute("href", url);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture)
@@ -28,5 +41,14 @@ function photographerFactory(data) {
         article.appendChild(p);
         return (article);
     }
-    return { name, picture, getUserCardDOM }
+}
+
+class photographerProfileFactory {
+    constructor(data) {
+        this.data = data;
+    }
+
+    getProfileDOM() {
+
+    }
 }
