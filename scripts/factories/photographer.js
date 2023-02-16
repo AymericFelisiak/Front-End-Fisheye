@@ -35,7 +35,7 @@ class photographerIndexFactory {
         h4.textContent = tagline;
         h4.setAttribute("class", "photographer-tagline");
         const p = document.createElement('p');
-        p.textContent = price + "/jour";
+        p.textContent = price + "€/jour";
         a.appendChild(img);
         a.appendChild(h2);
         article.appendChild(a);
@@ -66,17 +66,27 @@ class photographerProfileFactory {
     }
 
     getMedia(data) {
-        const {name} = this.photographerData;
-        const {title, image, likes} = data;
+        const {id} = this.photographerData;
+        const {title, image, video, likes} = data;
         const section = document.createElement('section');
         section.setAttribute('class', 'media-content-wrapper');
-
-        const picture = `assets/images/${name}/${image}`;
-
+        
         const imgWrapper = document.createElement('div');
-        imgWrapper.setAttribute('class', 'media-image-wrapper');
-        const img = document.createElement('img');
-        img.setAttribute('src', picture);
+        let img;
+        if(video == undefined) {
+            const picture = `assets/images/${id}/${image}`;
+            imgWrapper.setAttribute('class', 'media-image-wrapper');
+            img = document.createElement('img');
+            img.setAttribute('src', picture);
+        }
+        else {
+            const picture = `assets/images/${id}/${video}`;
+            imgWrapper.setAttribute('class', 'media-image-wrapper');
+            img = document.createElement('video');
+            const source = document.createElement('source');
+            source.setAttribute('src', picture);
+            img.appendChild(source);
+        }
 
         const informationsWrapper = document.createElement('div');
         informationsWrapper.setAttribute('class', 'media-image-informations');
@@ -92,10 +102,20 @@ class photographerProfileFactory {
         i.setAttribute('class', 'fa-solid fa-heart');
 
         imgWrapper.appendChild(img);
-        likesWrapper.appendChild(p, i);
-        informationsWrapper.appendChild(h2, likesWrapper);
-        section.appendChild(imgWrapper, informationsWrapper);
-
+        likesWrapper.appendChild(p);
+        likesWrapper.appendChild(i);
+        informationsWrapper.appendChild(h2);
+        informationsWrapper.appendChild(likesWrapper);
+        section.appendChild(imgWrapper);
+        section.appendChild(informationsWrapper);
         return (section);
+    }
+
+    getPhotographerData() {
+        return this.photographerData;
+    }
+
+    getPhotographerMedias() {
+        return this.photographerMedias;
     }
 }

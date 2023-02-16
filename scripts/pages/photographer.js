@@ -50,19 +50,21 @@ async function getMedias() {
     return medias;
 }
 
-async function displayData(photographer, medias) {
-    const profileHeader = document.querySelector(".photographer-header");
-    const factory = new photographerFactory(photographer, medias, 'profile');
-    const profileHeaderInfos = factory.getProfileInformationsDOM();
-    const {div, button, img} = profileHeaderInfos;
-    console.log(profileHeaderInfos);
-    profileHeader.appendChild();
+async function displayData(factory) {
+    const mediaWrapper = document.querySelector('.media-wrapper');
+    factory.getProfileInformationsDOM();
+    const medias = factory.getPhotographerMedias();
+    medias.forEach(element => {
+        const article = factory.getMedia(element);
+        mediaWrapper.appendChild(article);
+    });
 }
 
 async function init() {
     const photographer  = await getPhotographer();
     const medias = await getMedias();
-    displayData(photographer, medias);
+    const factory = new photographerFactory(photographer, medias, 'profile');
+    displayData(factory);
 }
 
 init();
