@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d376135941.js" crossorigin="anonymous"></script>
     <title>Fisheye - photographe </title>
   </head>
   <body>
@@ -23,8 +24,25 @@
       </section>
       <div class="sorting-wrapper">
         <p>Trier par</p>
-        <div class=""></div>
+        <div class="dropdown-menu navbutton">
+          <button class="navbutton">
+            <p>
+              Popularité 
+              <i class="fa-solid fa-chevron-down"></i>
+              <i class="fa-solid fa-chevron-up"></i>
+            </p>
+          </button>
+          <div class="menu-separator dropdown-content"></div>
+          <button class="navbutton dropdown-content">
+            <p>Date</p>
+          </button>
+          <div class="menu-separator dropdown-content"></div>
+          <button class="navbutton dropdown-content">
+            <p>Titre</p>
+          </button>
+        </div>
       </div>
+      <section class="media-wrapper"></section>
     </main>
     <div id="contact_modal">
 			<div class="modal">

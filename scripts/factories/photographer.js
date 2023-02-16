@@ -64,4 +64,38 @@ class photographerProfileFactory {
         const img = document.querySelector('.photographer-portrait');
         img.setAttribute("src", picture);
     }
+
+    getMedia(data) {
+        const {name} = this.photographerData;
+        const {title, image, likes} = data;
+        const section = document.createElement('section');
+        section.setAttribute('class', 'media-content-wrapper');
+
+        const picture = `assets/images/${name}/${image}`;
+
+        const imgWrapper = document.createElement('div');
+        imgWrapper.setAttribute('class', 'media-image-wrapper');
+        const img = document.createElement('img');
+        img.setAttribute('src', picture);
+
+        const informationsWrapper = document.createElement('div');
+        informationsWrapper.setAttribute('class', 'media-image-informations');
+
+        const h2 = document.createElement('h2');
+        h2.textContent = title;
+
+        const likesWrapper = document.createElement('div');
+        likesWrapper.setAttribute('class', 'media-image-likes');
+        const p = document.createElement('p');
+        p.textContent = likes;
+        const i = document.createElement('i');
+        i.setAttribute('class', 'fa-solid fa-heart');
+
+        imgWrapper.appendChild(img);
+        likesWrapper.appendChild(p, i);
+        informationsWrapper.appendChild(h2, likesWrapper);
+        section.appendChild(imgWrapper, informationsWrapper);
+
+        return (section);
+    }
 }

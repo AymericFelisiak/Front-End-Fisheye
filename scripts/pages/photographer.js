@@ -3,6 +3,11 @@ const url = window.location.search;
 const urlParameter = new URLSearchParams(url);
 const photographerId = urlParameter.get('photographer_id');
 
+//Eléments DOM
+const sortButton = document.querySelector('.navbutton');
+
+//Event listener
+
 // Récupère le photographe par rapport à l'id
 async function getPhotographer() {
     
