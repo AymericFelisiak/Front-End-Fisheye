@@ -77,23 +77,18 @@ class PhotographerProfileFactory {
         const imgWrapper = document.createElement('div');
         imgWrapper.setAttribute('class', 'media-image-wrapper');
         let img;
+        let path;
         if(video == undefined) {
-            const path = `assets/images/${id}/${image}`;
+            path = `assets/images/${id}/${image}`;
             img = document.createElement('img');
             img.setAttribute('src', path);
-            imgWrapper.addEventListener("click", function() {
-                createLightbox(title, path, 'image');
-            });
         }
         else {
-            const path = `assets/images/${id}/${video}`;
+            path = `assets/images/${id}/${video}`;
             img = document.createElement('video');
             const source = document.createElement('source');
             source.setAttribute('src', path);
             img.appendChild(source);
-            imgWrapper.addEventListener("click", function() {
-                createLightbox(title, path, 'video');
-            });
         }
 
         
@@ -118,6 +113,10 @@ class PhotographerProfileFactory {
         informationsWrapper.appendChild(likesWrapper);
         section.appendChild(imgWrapper);
         section.appendChild(informationsWrapper);
+
+        imgWrapper.addEventListener("click", function() {
+            createLightbox(title, path, video, section);
+        });
         return (section);
     }
 
