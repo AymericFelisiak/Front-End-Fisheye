@@ -64,6 +64,7 @@ class PhotographerProfileFactory {
         h4.textContent = tagline;
         const img = document.querySelector('.photographer-portrait');
         img.setAttribute("src", picture);
+        img.setAttribute("alt", name);
     }
 
     getMedia(data) {
@@ -82,6 +83,7 @@ class PhotographerProfileFactory {
             path = `assets/images/${id}/${image}`;
             img = document.createElement('img');
             img.setAttribute('src', path);
+            img.setAttribute('alt', title);
         }
         else {
             path = `assets/images/${id}/${video}`;
