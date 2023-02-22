@@ -56,15 +56,22 @@ class PhotographerProfileFactory {
     getProfileInformationsDOM() {
         const {name, portrait , city, country, tagline} = this.photographerData;
         const picture = `assets/photographers/${portrait}`;
+
         const h2 = document.querySelector('.photographer-name');
         h2.textContent = name;
+
         const h3= document.querySelector('.photographer-location');
         h3.textContent = city + ', ' + country;
+
         const h4 = document.querySelector('.photographer-tagline');
         h4.textContent = tagline;
+
         const img = document.querySelector('.photographer-portrait');
         img.setAttribute("src", picture);
         img.setAttribute("alt", name);
+
+        const formName = document.querySelector('.form-photographer-name');
+        formName.textContent = "Contactez-moi " + name;
     }
 
     getMedia(data) {
@@ -92,8 +99,6 @@ class PhotographerProfileFactory {
             source.setAttribute('src', path);
             img.appendChild(source);
         }
-
-        
 
         const informationsWrapper = document.createElement('div');
         informationsWrapper.setAttribute('class', 'media-image-informations');
