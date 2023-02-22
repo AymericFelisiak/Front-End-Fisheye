@@ -58,12 +58,13 @@ async function displayData(factory) {
         const article = factory.getMedia(element);
         mediaWrapper.appendChild(article);
     });
+    factory.getTotalLikesCard();
 }
 
 async function init() {
     const photographer  = await getPhotographer();
     const medias = await getMedias();
-    const factory = new photographerFactory(photographer, medias, 'profile');
+    const factory = new PhotographerFactory(photographer, medias, 'profile');
     displayData(factory);
 }
 

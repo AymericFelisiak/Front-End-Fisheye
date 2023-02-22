@@ -1,15 +1,15 @@
-class photographerFactory {
+class PhotographerFactory {
     constructor(data, medias, type) {
         if(type == 'index') {
-            return new photographerIndexFactory(data);
+            return new PhotographerIndexFactory(data);
         }
         if(type == 'profile') {
-            return new photographerProfileFactory(data, medias);
+            return new PhotographerProfileFactory(data, medias);
         }
     }
 }
 
-class photographerIndexFactory {
+class PhotographerIndexFactory {
     constructor(data) {
         this.data = data;
     }
@@ -46,10 +46,11 @@ class photographerIndexFactory {
     }
 }
 
-class photographerProfileFactory {
+class PhotographerProfileFactory {
     constructor(photographerData, photographerMedias) {
         this.photographerData = photographerData;
         this.photographerMedias = photographerMedias;
+        this.totalLikes = 0;
     }
 
     getProfileInformationsDOM() {
@@ -69,24 +70,33 @@ class photographerProfileFactory {
         const {id} = this.photographerData;
         const {title, image, video, likes} = data;
         const section = document.createElement('section');
+        this.totalLikes = this.totalLikes + likes;
+
         section.setAttribute('class', 'media-content-wrapper');
         
         const imgWrapper = document.createElement('div');
+        imgWrapper.setAttribute('class', 'media-image-wrapper');
         let img;
         if(video == undefined) {
-            const picture = `assets/images/${id}/${image}`;
-            imgWrapper.setAttribute('class', 'media-image-wrapper');
+            const path = `assets/images/${id}/${image}`;
             img = document.createElement('img');
-            img.setAttribute('src', picture);
+            img.setAttribute('src', path);
+            imgWrapper.addEventListener("click", function() {
+                createLightbox(title, path, 'image');
+            });
         }
         else {
-            const picture = `assets/images/${id}/${video}`;
-            imgWrapper.setAttribute('class', 'media-image-wrapper');
+            const path = `assets/images/${id}/${video}`;
             img = document.createElement('video');
             const source = document.createElement('source');
-            source.setAttribute('src', picture);
+            source.setAttribute('src', path);
             img.appendChild(source);
+            imgWrapper.addEventListener("click", function() {
+                createLightbox(title, path, 'video');
+            });
         }
+
+        
 
         const informationsWrapper = document.createElement('div');
         informationsWrapper.setAttribute('class', 'media-image-informations');
@@ -109,6 +119,23 @@ class photographerProfileFactory {
         section.appendChild(imgWrapper);
         section.appendChild(informationsWrapper);
         return (section);
+    }
+
+    getTotalLikesCard() {
+        const likeDiv = document.querySelector(".photographer-like-wrapper");
+        const like = document.querySelector(".total-likes");
+        const price = document.querySelector(".photographer-price");
+        const heart = document.createElement("i");
+
+        heart.setAttribute("class", "fa-solid fa-heart")
+        likeDiv.appendChild(heart);
+
+        like.textContent = this.totalLikes;
+        price.textContent = this.photographerData.price + "€ / jour";
+    }
+
+    getTotalLikes() {
+        return this.totalLikes;
     }
 
     getPhotographerData() {
