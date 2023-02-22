@@ -138,6 +138,8 @@ form input {
 
 .dropdown-menu {
     display: flex;
+    position: absolute;
+    left: 200px;
     max-width: 130px;
     flex-direction: column;
     align-items: center;
@@ -238,3 +240,18 @@ form input {
 .fa-heart {
     color: var(--secondary-darkred);
 }
+
+.photographer-like-price-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.photographer-like-wrapper {
+    margin-left: 30px;
+}
+
+.photographer-price-wrapper {
+    margin-right: 30px;
+}
+
