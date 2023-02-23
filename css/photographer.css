@@ -297,13 +297,14 @@ form .contact_button {
     left: 0;
     top: 0;
     width: 100%;
-    height: 1000px;
+    height: 100%;
     column-gap: 30px;
     background-color: white;
 }
 
 .lightbox-left-wrapper {
     display: flex;
+    margin-left: 30px;
 }
 
 .lightbox-left-wrapper .fa-chevron-left{
@@ -343,6 +344,7 @@ form .contact_button {
 .lightbox-right-wrapper {
     display: flex;
     flex-direction: column;
+    margin-right: 30px;
 }
 
 .lightbox-right-wrapper .fa-xmark{
