@@ -22,9 +22,9 @@ class PhotographerIndexFactory {
         const url = "photographer.html?photographer_id=" + id;
         a.setAttribute("href", url);
         const img = document.createElement( 'img' );
-        img.setAttribute("src", picture)
-        img.setAttribute("class", "photographer-portrait")
-        img.setAttribute("alt", name)
+        img.setAttribute("src", picture);
+        img.setAttribute("class", "photographer-portrait");
+        img.setAttribute("alt", name);
         const h2 = document.createElement( 'h2' );
         h2.setAttribute("class", "photographer-name");
         h2.textContent = name;
@@ -52,7 +52,7 @@ class PhotographerProfileFactory {
         this.photographerMedias = photographerMedias;
         this.totalLikes = 0;
     }
-
+    
     getProfileInformationsDOM() {
         const {name, portrait , city, country, tagline} = this.photographerData;
         const picture = `assets/photographers/${portrait}`;
@@ -74,9 +74,12 @@ class PhotographerProfileFactory {
         formName.textContent = "Contactez-moi " + name;
     }
 
-    getMedia(data) {
+    
+
+    createThumbnail(data, index) {
         const {id} = this.photographerData;
         const {title, image, video, likes} = data;
+        const medias = this.photographerMedias;
         const section = document.createElement('section');
         this.totalLikes = this.totalLikes + likes;
 
@@ -122,9 +125,13 @@ class PhotographerProfileFactory {
         section.appendChild(informationsWrapper);
 
         imgWrapper.addEventListener("click", function() {
-            createLightbox(title, path, video, section);
+            createLightbox(title, path, video, index, medias);
         });
         return (section);
+    }
+
+    getLightBox() {
+
     }
 
     getTotalLikesCard() {
@@ -139,6 +146,23 @@ class PhotographerProfileFactory {
         like.textContent = this.totalLikes;
         price.textContent = this.photographerData.price + "€ / jour";
     }
+
+    getMedia() {
+        const mediaWrapper = document.querySelector('.media-wrapper');
+        let i = 0;
+        this.photographerMedias.forEach(element => {
+            const article = this.createThumbnail(element, i);
+            i++;
+            mediaWrapper.appendChild(article);
+        });
+    }
+
+    getProfilePage() {
+        this.getProfileInformationsDOM();
+        this.getMedia();
+        this.getTotalLikesCard();
+    }
+
 
     getTotalLikes() {
         return this.totalLikes;

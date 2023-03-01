@@ -50,22 +50,11 @@ async function getMedias() {
     return medias;
 }
 
-async function displayData(factory) {
-    const mediaWrapper = document.querySelector('.media-wrapper');
-    factory.getProfileInformationsDOM();
-    const medias = factory.getPhotographerMedias();
-    medias.forEach(element => {
-        const article = factory.getMedia(element);
-        mediaWrapper.appendChild(article);
-    });
-    factory.getTotalLikesCard();
-}
-
 async function init() {
     const photographer  = await getPhotographer();
     const medias = await getMedias();
     const factory = new PhotographerFactory(photographer, medias, 'profile');
-    displayData(factory);
+    factory.getProfilePage();
 }
 
 init();

@@ -1,3 +1,5 @@
+let source;
+
 // Display the lightbox
 function displayLightbox() {
     const lightbox = document.querySelector(".lightbox-wrapper");
@@ -13,8 +15,18 @@ function closeLightbox() {
     lightbox.style.display = "none";
 }
 
+function getImagePath(medias) {
+    const {image, video, photographerId} = medias[source];
+    if(video == undefined) {
+        return `assets/images/${photographerId}/${image}`;
+    } 
+    else return `assets/images/${photographerId}/${video}`;
+    
+}
+
 // Function to create the lightbox when an image is clicked
-function createLightbox(title, path, type, node) {
+function createLightbox(title, path, type, index, medias) {
+    source = index;
     const lightbox = document.querySelector(".lightbox-wrapper");
     
     const leftWrapper = document.createElement('div');
@@ -34,34 +46,25 @@ function createLightbox(title, path, type, node) {
 
     const mediaTitle = document.createElement('h2');
     mediaTitle.textContent = title;
+    mediaTitle.setAttribute('class', 'lightbox-image-title');
 
     const leftChevron = document.createElement('i');
     leftChevron.setAttribute('class', 'fa-solid fa-chevron-left');
     leftChevron.addEventListener('click', function() {
-        previous(node);
+        previous(medias);
     });
 
     const rightChevron = document.createElement('i');
     rightChevron.setAttribute('class', 'fa-solid fa-chevron-right');
     rightChevron.addEventListener('click', function() {
-        next(node);
+        next(medias);
     });
 
     const closeIcon = document.createElement('i');
     closeIcon.setAttribute('class', 'fa-solid fa-xmark');
     closeIcon.addEventListener('click', closeLightbox);
     
-    let media;
-    if(type != undefined) {
-        const source = document.createElement('source');
-        source.setAttribute('src', path);
-        media = document.createElement('video');
-        media.setAttribute('controls', '');
-        media.appendChild(source);
-    } else {
-        media = document.createElement('img');
-        media.setAttribute('src', path);
-    }
+    let media = createContent(type, path);
 
     mediaWrapper.append(media);
 
@@ -82,28 +85,52 @@ function createLightbox(title, path, type, node) {
     displayLightbox();
 }
 
-function next(node) {
-    const content = document.querySelector('.media-wrapper');
-    let nextContent;
-    content.childNodes.forEach(child => {
-        nextContent = child.nextSibling;
-        if(child == node && nextContent != undefined) {
-            const event = new Event("click");
-            closeLightbox();
-            nextContent.querySelector('.media-image-wrapper').dispatchEvent(event);
-        }
-    })
+function createContent(type, path) {
+    let media;
+    if(type != undefined) {
+        const source = document.createElement('source');
+        source.setAttribute('src', path);
+        media = document.createElement('video');
+        media.setAttribute('class', 'lightbox-video');
+        media.setAttribute('controls', '');
+        media.appendChild(source);
+    } else {
+        media = document.createElement('img');
+        media.setAttribute('src', path);
+        media.setAttribute('class', 'lightbox-image');
+    }
+    return media;
 }
 
-function previous(node) {
-    const content = document.querySelector('.media-wrapper');
-    let previousContent;
-    content.childNodes.forEach(child => {
-        previousContent = child.previousSibling;
-        if(child == node && previousContent != undefined) {
-            const event = new Event("click");
-            closeLightbox();
-            previousContent.querySelector('.media-image-wrapper').dispatchEvent(event);
-        }
-    })
+function removeContent() {
+    const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
+    while(lightboxMediaWrapper.firstChild) {
+        lightboxMediaWrapper.removeChild(lightboxMediaWrapper.lastChild);
+    }
+}
+
+function next(medias) {
+    if(source < (medias.length - 1)) {
+        source = source + 1;
+        const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
+        const lightBoxTitle = document.querySelector('.lightbox-image-title');
+        const {title, video} = medias[source];
+        removeContent();
+        const media = createContent(video, getImagePath(medias));
+        lightBoxTitle.textContent = title;
+        lightboxMediaWrapper.appendChild(media);
+    }
+}
+
+function previous(medias) {
+    if(source > 0) {
+        source = source - 1;
+        const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
+        const lightBoxTitle = document.querySelector('.lightbox-image-title');
+        const {title, video} = medias[source];
+        removeContent();
+        const media = createContent(video, getImagePath(medias));
+        lightBoxTitle.textContent = title;
+        lightboxMediaWrapper.appendChild(media);
+    }
 }
