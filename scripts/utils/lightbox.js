@@ -1,4 +1,8 @@
-let source;
+// Current index (in the medias array)
+let index; 
+
+// All the medias of the photographer
+let medias;
 
 // Display the lightbox
 function displayLightbox() {
@@ -10,23 +14,25 @@ function displayLightbox() {
 // Close the lightbox
 function closeLightbox() {
     const lightbox = document.querySelector(".lightbox-wrapper");
+    document.removeEventListener('keydown', keyboardEvents);
     lightbox.innerHTML = '';
     document.body.style.overflow = 'visible';
     lightbox.style.display = "none";
 }
 
-function getImagePath(medias) {
-    const {image, video, photographerId} = medias[source];
+// Creates image/video path and returns it
+function getImagePath() {
+    const {image, video, photographerId} = medias[index];
     if(video == undefined) {
         return `assets/images/${photographerId}/${image}`;
     } 
     else return `assets/images/${photographerId}/${video}`;
-    
 }
 
 // Function to create the lightbox when an image is clicked
-function createLightbox(title, path, type, index, medias) {
-    source = index;
+function createLightbox(title, path, type, i, data) {
+    index = i;
+    medias = data;
     const lightbox = document.querySelector(".lightbox-wrapper");
     
     const leftWrapper = document.createElement('div');
@@ -50,15 +56,15 @@ function createLightbox(title, path, type, index, medias) {
 
     const leftChevron = document.createElement('i');
     leftChevron.setAttribute('class', 'fa-solid fa-chevron-left');
-    leftChevron.addEventListener('click', function() {
-        previous(medias);
-    });
+    leftChevron.addEventListener('click', previous);
+    
+    document.addEventListener('keydown', keyboardEvents);
 
     const rightChevron = document.createElement('i');
     rightChevron.setAttribute('class', 'fa-solid fa-chevron-right');
-    rightChevron.addEventListener('click', function() {
-        next(medias);
-    });
+    rightChevron.addEventListener('click', next);
+
+    
 
     const closeIcon = document.createElement('i');
     closeIcon.setAttribute('class', 'fa-solid fa-xmark');
@@ -85,6 +91,7 @@ function createLightbox(title, path, type, index, medias) {
     displayLightbox();
 }
 
+// Returns a video or img html tag
 function createContent(type, path) {
     let media;
     if(type != undefined) {
@@ -102,6 +109,7 @@ function createContent(type, path) {
     return media;
 }
 
+// Removes children of the lightbox media wrapper
 function removeContent() {
     const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
     while(lightboxMediaWrapper.firstChild) {
@@ -109,12 +117,13 @@ function removeContent() {
     }
 }
 
-function next(medias) {
-    if(source < (medias.length - 1)) {
-        source = source + 1;
+// Displays next content in lightbox
+function next() {
+    if(index < (medias.length - 1)) {
+        index = index + 1;
         const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
         const lightBoxTitle = document.querySelector('.lightbox-image-title');
-        const {title, video} = medias[source];
+        const {title, video} = medias[index];
         removeContent();
         const media = createContent(video, getImagePath(medias));
         lightBoxTitle.textContent = title;
@@ -122,15 +131,29 @@ function next(medias) {
     }
 }
 
-function previous(medias) {
-    if(source > 0) {
-        source = source - 1;
+// Displays previous content in lightbox
+function previous() {
+    if(index > 0) {
+        index = index - 1;
         const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
         const lightBoxTitle = document.querySelector('.lightbox-image-title');
-        const {title, video} = medias[source];
+        const {title, video} = medias[index];
         removeContent();
-        const media = createContent(video, getImagePath(medias));
+        const media = createContent(video, getImagePath());
         lightBoxTitle.textContent = title;
         lightboxMediaWrapper.appendChild(media);
+    }
+}
+
+// Handles keyboard events
+function keyboardEvents(e) {
+    if(e.key == 'ArrowLeft') {
+        previous();
+    }
+    if(e.key == 'ArrowRight') {
+        next();
+    }
+    if(e.key == 'Escape') {
+        closeLightbox();
     }
 }
