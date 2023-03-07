@@ -162,6 +162,7 @@ form .contact_button {
 .dropdown-menu {
     display: flex;
     position: absolute;
+    z-index: 1;
     left: 200px;
     max-width: 130px;
     flex-direction: column;

@@ -2,16 +2,19 @@
 const url = window.location.search;
 const urlParameter = new URLSearchParams(url);
 const photographerId = urlParameter.get('photographer_id');
+let photographer;
 
 //Eléments DOM
-const sortButton = document.querySelector('.navbutton');
+const sortPopularity = document.querySelector('#popularity');
+const sortDate = document.querySelector('#date');
+const sortTitle = document.querySelector('#title');
 
 //Event listener
 
 // Récupère le photographe par rapport à l'id
 async function getPhotographer() {
     
-    let photographer = await fetch("./data/photographers.json").then(dataSet => {
+    let photographerData = await fetch("./data/photographers.json").then(dataSet => {
             if(!dataSet.ok) {
                 throw new Error('File path incorrect');
             }
@@ -26,7 +29,7 @@ async function getPhotographer() {
     ).catch(error => 
         console.error('Fetch error : ', error)
     );
-    return photographer;
+    return photographerData;
 }
 
 // Récupère les médias du photographe
@@ -51,10 +54,20 @@ async function getMedias() {
 }
 
 async function init() {
-    const photographer  = await getPhotographer();
+    const photographerData  = await getPhotographer();
     const medias = await getMedias();
-    const factory = new PhotographerFactory(photographer, medias, 'profile');
-    factory.getProfilePage();
+    photographer = new PhotographerFactory(photographerData, medias, 'profile');
+    photographer.getProfilePage();
+    sortPopularity.addEventListener("click", function() {
+        photographer.sortByPopularity();
+    });
+
+    sortTitle.addEventListener("click", function() {
+        photographer.sortByTitle();
+    });
+    sortDate.addEventListener("click", function() {
+        photographer.sortByDate();
+    });
 }
 
 init();
