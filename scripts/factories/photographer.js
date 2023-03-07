@@ -10,8 +10,9 @@ class PhotographerFactory {
 }
 
 class PhotographerIndexFactory {
-    constructor(data) {
+    constructor(data, index) {
         this.data = data;
+        this.index = index;
     }
 
     getUserCardDOM() {
@@ -21,6 +22,7 @@ class PhotographerIndexFactory {
         const a = document.createElement('a');
         const url = "photographer.html?photographer_id=" + id;
         a.setAttribute("href", url);
+        article.setAttribute("tabindex", this.index);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
         img.setAttribute("class", "photographer-portrait");
@@ -38,10 +40,10 @@ class PhotographerIndexFactory {
         p.textContent = price + "€/jour";
         a.appendChild(img);
         a.appendChild(h2);
+        a.appendChild(h3);
+        a.appendChild(h4);
+        a.appendChild(p);   
         article.appendChild(a);
-        article.appendChild(h3);
-        article.appendChild(h4);
-        article.appendChild(p);
         return (article);
     }
 }
@@ -100,6 +102,7 @@ class PhotographerProfileFactory {
             source.setAttribute('src', path);
             img.appendChild(source);
         }
+        img.setAttribute('aria-label', title + ", closeup view");
 
         const informationsWrapper = document.createElement('div');
         informationsWrapper.setAttribute('class', 'media-image-informations');
@@ -125,6 +128,8 @@ class PhotographerProfileFactory {
         imgWrapper.addEventListener("click", function() {
             createLightbox(title, path, video, index, medias);
         });
+
+        imgWrapper.setAttribute('tabindex', '0');
         return (section);
     }
 

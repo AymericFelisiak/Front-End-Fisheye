@@ -11,7 +11,9 @@
   </head>
   <body>
     <header class="header-wrapper"> 
-      <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye"/></a>
+      <a tabindex="0" href="index.html">
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye Home Page"/>
+      </a>
     </header>
     <main id="main">
       <section class="photographer-header">
@@ -20,12 +22,12 @@
           <h3 class="photographer-location"></h3>
           <h4 class="photographer-tagline"></h4>
         </div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button aria-label="Contact Me" class="contact_button" onclick="displayModal()">Contactez-moi</button>
         <img class="photographer-portrait">
       </section>
       <div class="sorting-wrapper">
         <p>Trier par</p>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu" aria-label="Order by">
           <button id="popularity" class="navbutton">
             <p>
               Popularité 

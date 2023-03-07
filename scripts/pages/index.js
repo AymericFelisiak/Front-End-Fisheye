@@ -1,4 +1,4 @@
-// Fetch les datas des photographes dans le fichier json
+// Fetch photographers datas in json file
 async function getPhotographers() {
     let photographers = await fetch("./data/photographers.json").then(dataSet => {
             if(!dataSet.ok) {

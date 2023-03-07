@@ -1,11 +1,13 @@
 function displayModal() {
     const modal = document.querySelector(".contact_modal");
 	modal.style.display = "flex";
+    document.addEventListener('keydown', handleEscapeKey);
 }
 
 function closeModal() {
     const modal = document.querySelector(".contact_modal");
     modal.style.display = "none";
+    document.removeEventListener('keydown', handleEscapeKey);
 }
 
 function sendForm() {
@@ -22,4 +24,10 @@ function sendForm() {
     closeModal();
     // window.location.reload();
     return false;
+}
+
+function handleEscapeKey(e) {
+    if(e.key == 'Escape') {
+        closeModal();
+    }
 }

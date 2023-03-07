@@ -1,17 +1,26 @@
-// Récupère l'id du photographe passé dans l'URL
+// Retrieves photographer id in URL
 const url = window.location.search;
 const urlParameter = new URLSearchParams(url);
 const photographerId = urlParameter.get('photographer_id');
 let photographer;
 
-//Eléments DOM
+//DOM elements
 const sortPopularity = document.querySelector('#popularity');
 const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
 
-//Event listener
+// Handles enter keypress
+document.addEventListener('keydown', handleEnterKey);
 
-// Récupère le photographe par rapport à l'id
+// Defines what does enter key when pressed
+// Fires event of the focused element
+function handleEnterKey(e) {
+    if(e.key == 'Enter' && document.activeElement.tagName == 'DIV') {
+        document.activeElement.click();
+    }
+}
+
+// Gets photographer by id
 async function getPhotographer() {
     
     let photographerData = await fetch("./data/photographers.json").then(dataSet => {
@@ -32,7 +41,7 @@ async function getPhotographer() {
     return photographerData;
 }
 
-// Récupère les médias du photographe
+// Gets photographers medias 
 async function getMedias() {
     const medias = [];
     await fetch("./data/photographers.json").then(dataSet => {
