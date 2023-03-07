@@ -9,11 +9,34 @@ const sortPopularity = document.querySelector('#popularity');
 const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
 
-// Handles enter keypress
+// Event listeners
+sortPopularity.addEventListener('focus', handleDropdownFocus);
+sortTitle.addEventListener('focusout', handleDrowndownFocusOut);
 document.addEventListener('keydown', handleEnterKey);
 
-// Defines what does enter key when pressed
-// Fires event of the focused element
+// Expands dropmenu when popularity button is focused
+function handleDropdownFocus() {
+    const chevronDown = document.querySelector('.fa-chevron-down');
+    const chevronUp = document.querySelector('.fa-chevron-up');
+    const dropDownContent = document.querySelector('.dropdown-content');
+
+    chevronDown.style.display = "none";
+    chevronUp.style.display = "block";
+    dropDownContent.style.display = "block";
+}
+
+// Retracts dropmenu when title button is unfocused
+function handleDrowndownFocusOut() {
+    const chevronDown = document.querySelector('.fa-chevron-down');
+    const chevronUp = document.querySelector('.fa-chevron-up');
+    const dropDownContent = document.querySelector('.dropdown-content');
+
+    chevronDown.style.display = "block";
+    chevronUp.style.display = "none";
+    dropDownContent.style.display = "none";
+}
+
+// Handles enter keypress on medias
 function handleEnterKey(e) {
     if(e.key == 'Enter' && document.activeElement.tagName == 'DIV') {
         document.activeElement.click();
