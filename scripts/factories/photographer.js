@@ -120,6 +120,11 @@ class PhotographerProfileFactory {
         imgWrapper.appendChild(img);
         likesWrapper.appendChild(p);
         likesWrapper.appendChild(i);
+
+        likesWrapper.addEventListener('click', function() {
+            this.handleLike();
+        });
+
         informationsWrapper.appendChild(h2);
         informationsWrapper.appendChild(likesWrapper);
         section.appendChild(imgWrapper);
@@ -160,53 +165,6 @@ class PhotographerProfileFactory {
         this.getProfileInformationsDOM();
         this.getMedia();
         this.getTotalLikesCard();
-    }
-
-    sortByPopularity() {
-        this.photographerMedias.sort(this.likesComparator);
-        this.removeMedia();
-        this.getMedia();
-    }
-
-    sortByDate() {
-        this.photographerMedias.sort(this.dateComparator);
-        this.removeMedia();
-        this.getMedia();
-    }
-
-    sortByTitle() {
-        this.photographerMedias.sort(this.titleComparator);
-        this.removeMedia();
-        this.getMedia();
-    }
-
-    likesComparator(a, b) {
-        return parseInt(b.likes, 10) - parseInt(a.likes, 10);
-    }
-
-    titleComparator(a, b) {
-        if(a.title < b.title) {
-            return -1;
-        }
-        if(a.title > b.title) {
-            return 1;
-        }
-        return 0;
-    }
-
-    dateComparator(a, b) {
-        return new Date(a.date) - new Date(b.date);
-    }
-
-    removeMedia() {
-        const mediaWrapper = document.querySelector('.media-wrapper');
-        while(mediaWrapper.firstChild) {
-            mediaWrapper.removeChild(mediaWrapper.lastChild);
-        }
-    }
-
-    set photographerMedia(newMedia) {
-        this.photographerMedias = newMedia;
     }
 
     get getTotalLikes() {

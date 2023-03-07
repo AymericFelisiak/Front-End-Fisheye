@@ -10,12 +10,12 @@ const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
 
 // Event listeners
-sortPopularity.addEventListener('focus', handleDropdownFocus);
-sortTitle.addEventListener('focusout', handleDrowndownFocusOut);
+sortPopularity.addEventListener('focus', expandMenu);
+sortTitle.addEventListener('blur', retractMenu);
 document.addEventListener('keydown', handleEnterKey);
 
 // Expands dropmenu when popularity button is focused
-function handleDropdownFocus() {
+function expandMenu() {
     const chevronDown = document.querySelector('.fa-chevron-down');
     const chevronUp = document.querySelector('.fa-chevron-up');
     const dropDownContent = document.querySelector('.dropdown-content');
@@ -26,20 +26,63 @@ function handleDropdownFocus() {
 }
 
 // Retracts dropmenu when title button is unfocused
-function handleDrowndownFocusOut() {
+function retractMenu() {
     const chevronDown = document.querySelector('.fa-chevron-down');
     const chevronUp = document.querySelector('.fa-chevron-up');
     const dropDownContent = document.querySelector('.dropdown-content');
 
-    chevronDown.style.display = "block";
-    chevronUp.style.display = "none";
-    dropDownContent.style.display = "none";
+    chevronDown.removeAttribute('style');
+    chevronUp.removeAttribute('style');
+    dropDownContent.removeAttribute('style');
 }
 
 // Handles enter keypress on medias
 function handleEnterKey(e) {
     if(e.key == 'Enter' && document.activeElement.tagName == 'DIV') {
         document.activeElement.click();
+    }
+}
+
+function sortByPopularity() {
+    photographer.getPhotographerMedias.sort(likesComparator);
+    removeMedia();
+    photographer.getMedia();
+}
+
+function sortByDate() {
+    photographer.getPhotographerMedias.sort(dateComparator);
+    removeMedia();
+    photographer.getMedia();
+}
+
+function sortByTitle() {
+    photographer.getPhotographerMedias.sort(titleComparator);
+    removeMedia();
+    photographer.getMedia();
+}
+
+function likesComparator(a, b) {
+    return parseInt(b.likes, 10) - parseInt(a.likes, 10);
+}
+
+function titleComparator(a, b) {
+    if(a.title < b.title) {
+        return -1;
+    }
+    if(a.title > b.title) {
+        return 1;
+    }
+    return 0;
+}
+
+function dateComparator(a, b) {
+    return new Date(a.date) - new Date(b.date);
+}
+
+function removeMedia() {
+    const mediaWrapper = document.querySelector('.media-wrapper');
+    while(mediaWrapper.firstChild) {
+        mediaWrapper.removeChild(mediaWrapper.lastChild);
     }
 }
 
@@ -91,14 +134,17 @@ async function init() {
     photographer = new PhotographerFactory(photographerData, medias, 'profile');
     photographer.getProfilePage();
     sortPopularity.addEventListener("click", function() {
-        photographer.sortByPopularity();
+        sortByPopularity();
+        retractMenu();
     });
 
     sortTitle.addEventListener("click", function() {
-        photographer.sortByTitle();
+        sortByTitle();
+        retractMenu();
     });
     sortDate.addEventListener("click", function() {
-        photographer.sortByDate();
+        sortByDate();
+        retractMenu();
     });
 }
 
