@@ -4,7 +4,6 @@ const focusableElements = modal.querySelectorAll("[tabindex='0'], input, textare
 let activeIndex = 0;
 
 function displayModal() {
-    // const modal = document.querySelector(".contact_modal");
 	modal.style.display = "flex";
     modal.setAttribute('aria-hidden', 'false');
     document.addEventListener('keydown', handleEscapeKey);
@@ -12,7 +11,6 @@ function displayModal() {
 }
 
 function closeModal() {
-    // const modal = document.querySelector(".contact_modal");
     modal.style.display = "none";
     modal.setAttribute('aria-hidden', 'true');
     document.removeEventListener('keydown', handleEscapeKey);
@@ -31,7 +29,6 @@ function sendForm() {
     console.log(message.value);
 
     closeModal();
-    // window.location.reload();
     return false;
 }
 
@@ -61,7 +58,6 @@ function handleFocus(e) {
         else {
             if(activeIndex < focusableElements.length - 1) {
                 activeIndex++;
-                console.log(activeIndex);
                 focusableElements[activeIndex].focus();
             }
         }

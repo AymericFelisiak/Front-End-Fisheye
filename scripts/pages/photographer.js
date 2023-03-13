@@ -14,7 +14,6 @@ const sortTitle = document.querySelector('#title');
 dropDownMenu.addEventListener('mouseover', ariaExpandedTrue);
 dropDownMenu.addEventListener('mouseout', ariaExpandedFalse);
 sortPopularity.addEventListener('focus', expandMenu);
-// sortTitle.addEventListener('blur', retractMenu);
 document.addEventListener('keydown', handleEnterKey);
 
 function ariaExpandedTrue() {
@@ -39,17 +38,17 @@ function expandMenu() {
 }
 
 // Retracts dropmenu when title button is unfocused
-// function retractMenu() {
-//     const chevronDown = document.querySelector('.fa-chevron-down');
-//     const chevronUp = document.querySelector('.fa-chevron-up');
-//     const dropDownContent = document.querySelector('.dropdown-content');
+function retractMenu() {
+    const chevronDown = document.querySelector('.fa-chevron-down');
+    const chevronUp = document.querySelector('.fa-chevron-up');
+    const dropDownContent = document.querySelector('.dropdown-content');
 
-//     ariaExpandedFalse();
+    ariaExpandedFalse();
 
-//     chevronDown.removeAttribute('style');
-//     chevronUp.removeAttribute('style');
-//     dropDownContent.removeAttribute('style');
-// }
+    chevronDown.removeAttribute('style');
+    chevronUp.removeAttribute('style');
+    dropDownContent.removeAttribute('style');
+}
 
 // Handles enter keypress on medias
 function handleEnterKey(e) {
