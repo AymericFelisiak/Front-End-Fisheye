@@ -1,4 +1,6 @@
-class PhotographerFactory {
+import {createLightbox} from "/scripts/utils/lightbox.js";
+
+export class PhotographerFactory {
     constructor(data, medias, type) {
         if(type == 'index') {
             return new PhotographerIndexFactory(data);
@@ -48,6 +50,7 @@ class PhotographerIndexFactory {
 }
 
 class PhotographerProfileFactory {
+
     constructor(photographerData, photographerMedias) {
         this.photographerData = photographerData;
         this.photographerMedias = photographerMedias;
@@ -120,10 +123,6 @@ class PhotographerProfileFactory {
         likesWrapper.appendChild(p);
         likesWrapper.appendChild(i);
 
-        likesWrapper.addEventListener('click', function() {
-            handleLike(this);
-        });
-
         informationsWrapper.appendChild(h2);
         informationsWrapper.appendChild(likesWrapper);
         section.appendChild(imgWrapper);
@@ -132,6 +131,7 @@ class PhotographerProfileFactory {
         imgWrapper.addEventListener("click", function() {
             createLightbox(title, path, video, index, medias);
         });
+
         return (section);
     }
 

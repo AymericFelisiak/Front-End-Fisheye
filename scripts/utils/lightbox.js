@@ -30,7 +30,7 @@ function getImagePath() {
 }
 
 // Function to create the lightbox when an image is clicked
-function createLightbox(title, path, type, i, data) {
+export function createLightbox(title, path, type, i, data) {
     index = i;
     medias = data;
     const lightbox = document.querySelector(".lightbox-wrapper");

@@ -1,3 +1,7 @@
+import {PhotographerFactory} from "/scripts/factories/photographer.js";
+
+let activeIndex = 0;
+
 // Retrieves photographer id in URL
 const url = window.location.search;
 const urlParameter = new URLSearchParams(url);
@@ -9,12 +13,6 @@ const dropDownMenu = document.querySelector('.dropdown-menu');
 const sortPopularity = document.querySelector('#popularity');
 const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
-
-// Event listeners
-dropDownMenu.addEventListener('mouseover', ariaExpandedTrue);
-dropDownMenu.addEventListener('mouseout', ariaExpandedFalse);
-sortPopularity.addEventListener('focus', expandMenu);
-document.addEventListener('keydown', handleEnterKey);
 
 function ariaExpandedTrue() {
     dropDownMenu.setAttribute('aria-expanded', 'true');
@@ -94,7 +92,7 @@ function dateComparator(a, b) {
 }
 
 // Function called in listener when like button under a media is clicked
-function handleLike(node) {
+export function handleLike(node) {
     const totalLikes = document.querySelector('.total-likes');
     const like = parseInt(node.textContent, 10) + 1;
     const p = node.querySelector('p');
@@ -158,6 +156,19 @@ async function init() {
     const medias = await getMedias();
     photographer = new PhotographerFactory(photographerData, medias, 'profile');
     photographer.getProfilePage();
+
+    dropDownMenu.addEventListener('mouseover', ariaExpandedTrue);
+    dropDownMenu.addEventListener('mouseout', ariaExpandedFalse);
+    sortPopularity.addEventListener('focus', expandMenu);
+    document.addEventListener('keydown', handleEnterKey);
+
+    const likeDivs = document.querySelectorAll('.media-image-likes');
+    likeDivs.forEach(div => {
+        div.addEventListener('click', function() {
+            handleLike(this);
+        });
+    });
+
     sortPopularity.addEventListener("click", function() {
         sortByPopularity();
         retractMenu();

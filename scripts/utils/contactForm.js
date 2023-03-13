@@ -3,7 +3,7 @@ const firstFocusable = modal.querySelector("[tabindex='0']");
 const focusableElements = modal.querySelectorAll("[tabindex='0'], input, textarea, button");
 let activeIndex = 0;
 
-function displayModal() {
+export function displayModal() {
 	modal.style.display = "flex";
     modal.setAttribute('aria-hidden', 'false');
     document.addEventListener('keydown', handleEscapeKey);
@@ -17,7 +17,7 @@ function closeModal() {
     document.removeEventListener('keydown', handleFocus);
 }
 
-function sendForm() {
+export function sendForm() {
     const firstName = document.querySelector('#firstname');
     const lastName = document.querySelector('#lastname');
     const email = document.querySelector('#email');

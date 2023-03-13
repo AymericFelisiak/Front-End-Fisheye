@@ -1,3 +1,5 @@
+import {PhotographerFactory} from "/scripts/factories/photographer.js";
+
 let activeIndex = 0;
 const firstFocusable = document.querySelector("[tabindex='0']");
 let focusableElements;
@@ -39,7 +41,6 @@ function handleTabKeyDefault(e) {
     }
     e.preventDefault();
     if(activeIndex == 0 && document.activeElement != firstFocusable) {
-        this.activeElement = firstFocusable;
         firstFocusable.focus();
     }   
     else {
