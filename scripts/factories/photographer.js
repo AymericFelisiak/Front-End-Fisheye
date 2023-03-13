@@ -22,7 +22,6 @@ class PhotographerIndexFactory {
         const a = document.createElement('a');
         const url = "photographer.html?photographer_id=" + id;
         a.setAttribute("href", url);
-        article.setAttribute("tabindex", this.index);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
         img.setAttribute("class", "photographer-portrait");
@@ -133,8 +132,6 @@ class PhotographerProfileFactory {
         imgWrapper.addEventListener("click", function() {
             createLightbox(title, path, video, index, medias);
         });
-
-        imgWrapper.setAttribute('tabindex', '0');
         return (section);
     }
 

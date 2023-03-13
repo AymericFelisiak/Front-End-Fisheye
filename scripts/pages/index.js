@@ -22,12 +22,18 @@ async function displayData(photographers) {
 }
 
 async function init() {
-    // Récupère les datas des photographes
+    // Récupère les datas des photographes  
     const { photographers } = await getPhotographers();
     displayData(photographers);
+    // document.addEventListener('keydown', handleTabKeyDefault);
 }
 
-
+function handleTabKeyDefault(e) {
+    console.log(e.key);
+    if(e.key == 'Tab') {
+        e.preventDefault();
+    }
+}
 
 init();
 

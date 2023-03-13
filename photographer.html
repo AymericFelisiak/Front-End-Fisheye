@@ -55,11 +55,11 @@
         </div>
       </div>
     </main>
-    <div class="contact_modal">
+    <div class="contact_modal" role="modal" aria-labelledby="modal-title" tab-index="1" aria-modal="true" aria-hidden="true">
 			<div class="modal">
 				<header>
-          <h2 class="form-photographer-name">Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()"/>
+          <h2 class="form-photographer-name" id="modal-title">Contactez-moi</h2>
+          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Close" tabindex="0"/>
         </header>
 				<form onsubmit="return sendForm();">
 					<div class="form-data">
