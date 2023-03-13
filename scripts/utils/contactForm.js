@@ -1,9 +1,24 @@
+import {createKeyboardEvents} from "/scripts/pages/photographer.js";
+import {removeDocumentKeyboardEvents} from "/scripts/pages/photographer.js";
+
+
+// DOM Elements
 const modal = document.querySelector(".contact_modal");
 const firstFocusable = modal.querySelector("[tabindex='0']");
 const focusableElements = modal.querySelectorAll("[tabindex='0'], input, textarea, button");
+const closeButton = modal.querySelector('[alt="close"]');
+const sendButton = modal.querySelector('#send-form');
+
+// Listeners
+closeButton.addEventListener('click', closeModal);
+closeButton.addEventListener('keydown', handleEnterToClose);
+sendButton.addEventListener('submit', sendForm);
+
+sendButton.action = "";
 let activeIndex = 0;
 
 export function displayModal() {
+    removeDocumentKeyboardEvents();
 	modal.style.display = "flex";
     modal.setAttribute('aria-hidden', 'false');
     document.addEventListener('keydown', handleEscapeKey);
@@ -11,6 +26,7 @@ export function displayModal() {
 }
 
 function closeModal() {
+    createKeyboardEvents();
     modal.style.display = "none";
     modal.setAttribute('aria-hidden', 'true');
     document.removeEventListener('keydown', handleEscapeKey);
@@ -32,6 +48,12 @@ export function sendForm() {
     return false;
 }
 
+function handleEnterToClose(e) {
+    if(e.key == 'Enter') {
+        closeModal();
+    }
+}
+
 function handleEscapeKey(e) {
     if(e.key == 'Escape') {
         closeModal();
@@ -40,22 +62,22 @@ function handleEscapeKey(e) {
 
 // Handler to trap focus elements to modal window
 function handleFocus(e) {
-    if(!(e.key == 'Tab')) {
+    if(!(e.key == 'Tab') && !(e.key == 'ArrowLeft') && !(e.key == 'ArrowRight')) {
         return;
     }
     e.preventDefault();
-    if(modal.activeElement == undefined) {
-        modal.activeElement = firstFocusable;
+    if(activeIndex == 0 && modal.activeElement != firstFocusable) {
         firstFocusable.focus();
+        modal.activeElement = firstFocusable;
     }   
     else {
-        if(e.key == 'Tab' && e.shiftKey == true) {
+        if((e.key == 'Tab' && e.shiftKey == true) || (e.key == 'ArrowLeft')) {
             if(activeIndex > 0) {
                 activeIndex--;
                 focusableElements[activeIndex].focus();
             }
         }
-        else {
+        else {  // If Tab or ArrowRight
             if(activeIndex < focusableElements.length - 1) {
                 activeIndex++;
                 focusableElements[activeIndex].focus();

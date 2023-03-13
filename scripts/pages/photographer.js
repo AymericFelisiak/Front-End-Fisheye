@@ -1,5 +1,9 @@
+import { createLightbox } from "/scripts/utils/lightbox.js";
 import {PhotographerFactory} from "/scripts/factories/photographer.js";
+import {displayModal} from "/scripts/utils/contactForm.js";
 
+const firstFocusable = document.querySelector('#home');
+let focusableElements;
 let activeIndex = 0;
 
 // Retrieves photographer id in URL
@@ -13,6 +17,9 @@ const dropDownMenu = document.querySelector('.dropdown-menu');
 const sortPopularity = document.querySelector('#popularity');
 const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
+const contactButton = document.querySelector('.contact_button');
+
+contactButton.addEventListener('click', displayModal);
 
 function ariaExpandedTrue() {
     dropDownMenu.setAttribute('aria-expanded', 'true');
@@ -101,12 +108,73 @@ export function handleLike(node) {
     p.textContent = like;
 }
 
+function handleFocus(e) {
+    if(!(e.key == 'Tab') && !(e.key == 'ArrowLeft') && !(e.key == 'ArrowRight')) {
+        return;
+    }
+    e.preventDefault();
+    if(activeIndex == 0 && document.activeElement != firstFocusable) {
+        firstFocusable.focus();
+    }   
+    else {
+        if((e.key == 'Tab' && e.shiftKey == true) || (e.key == 'ArrowLeft')) {
+            if(activeIndex > 0) {
+                activeIndex--;
+                focusableElements[activeIndex].focus();
+            }
+        }
+        else {  // If Tab or ArrowRight
+            if(activeIndex < focusableElements.length - 1) {
+                activeIndex++;
+                focusableElements[activeIndex].focus();
+            }
+        }
+    }
+}
+
+export function createKeyboardEvents() {
+    document.addEventListener('keydown', handleEnterKey);
+    document.addEventListener('keydown', handleFocus);
+}
+
+export function removeDocumentKeyboardEvents() {
+    document.removeEventListener('keydown', handleEnterKey);
+    document.removeEventListener('keydown', handleFocus);
+}
+
 // Removes media from lightbox
 function removeMedia() {
     const mediaWrapper = document.querySelector('.media-wrapper');
     while(mediaWrapper.firstChild) {
         mediaWrapper.removeChild(mediaWrapper.lastChild);
     }
+}
+
+// Retrieves every media in the grid and passes each node to a function creating the Listener
+function createLightboxEvent() {
+    const grid = document.querySelectorAll('.media-image-wrapper');
+    let i = 0;
+    grid.forEach(media => {
+        addLightboxListener(i, media);
+        i++;
+    });
+}
+
+// Links EventListener to the node
+function addLightboxListener(i, node) {
+    const {title, video, image} = photographer.getPhotographerMedias[i];
+    const path = getPath(video, image);
+    node.addEventListener('click', function() {
+        createLightbox(title, path, video, i, photographer.getPhotographerMedias);
+    });
+}
+
+// Creates image/video path and returns it
+function getPath(video, image) {
+    if(video == undefined) {
+        return `assets/images/${photographerId}/${image}`;
+    } 
+    else return `assets/images/${photographerId}/${video}`;
 }
 
 // Gets photographer by id
@@ -156,11 +224,11 @@ async function init() {
     const medias = await getMedias();
     photographer = new PhotographerFactory(photographerData, medias, 'profile');
     photographer.getProfilePage();
+    focusableElements = document.querySelectorAll("#home, #contact, .navbutton, .media-image-wrapper");
 
     dropDownMenu.addEventListener('mouseover', ariaExpandedTrue);
     dropDownMenu.addEventListener('mouseout', ariaExpandedFalse);
     sortPopularity.addEventListener('focus', expandMenu);
-    document.addEventListener('keydown', handleEnterKey);
 
     const likeDivs = document.querySelectorAll('.media-image-likes');
     likeDivs.forEach(div => {
@@ -182,6 +250,9 @@ async function init() {
         sortByDate();
         retractMenu();
     });
+
+    createKeyboardEvents();
+    createLightboxEvent();
 }
 
 init();

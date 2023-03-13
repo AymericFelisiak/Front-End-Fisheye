@@ -1,5 +1,3 @@
-import {createLightbox} from "/scripts/utils/lightbox.js";
-
 export class PhotographerFactory {
     constructor(data, medias, type) {
         if(type == 'index') {
@@ -78,10 +76,8 @@ class PhotographerProfileFactory {
         formName.textContent = "Contactez-moi " + name;
     }
 
-    createThumbnail(data, index) {
-        const {id} = this.photographerData;
-        const {title, image, video, likes} = data;
-        const medias = this.photographerMedias;
+    createThumbnail(data) {
+        const {title, image, video, likes, photographerId, id} = data;
         const section = document.createElement('section');
         this.totalLikes = this.totalLikes + likes;
 
@@ -89,17 +85,20 @@ class PhotographerProfileFactory {
         
         const imgWrapper = document.createElement('div');
         imgWrapper.setAttribute('class', 'media-image-wrapper');
+        imgWrapper.setAttribute('tabindex', '0');
         let img;
         let path;
         if(video == undefined) {
-            path = `assets/images/${id}/${image}`;
+            path = `assets/images/${photographerId}/${image}`;
             img = document.createElement('img');
             img.setAttribute('src', path);
             img.setAttribute('alt', title);
+            img.setAttribute('id', id)
         }
         else {
-            path = `assets/images/${id}/${video}`;
+            path = `assets/images/${photographerId}/${video}`;
             img = document.createElement('video');
+            img.setAttribute('id', id);
             const source = document.createElement('source');
             source.setAttribute('src', path);
             img.appendChild(source);
@@ -127,10 +126,6 @@ class PhotographerProfileFactory {
         informationsWrapper.appendChild(likesWrapper);
         section.appendChild(imgWrapper);
         section.appendChild(informationsWrapper);
-
-        imgWrapper.addEventListener("click", function() {
-            createLightbox(title, path, video, index, medias);
-        });
 
         return (section);
     }

@@ -1,3 +1,6 @@
+import {createKeyboardEvents} from "/scripts/pages/photographer.js";
+import {removeDocumentKeyboardEvents} from "/scripts/pages/photographer.js";
+
 // Current index (in the medias array)
 let index; 
 
@@ -6,6 +9,7 @@ let medias;
 
 // Display the lightbox
 function displayLightbox() {
+    removeDocumentKeyboardEvents();
     const lightbox = document.querySelector(".lightbox-wrapper");
     document.body.style.overflow = 'hidden';
 	lightbox.style.display = "flex";
@@ -13,6 +17,7 @@ function displayLightbox() {
 
 // Close the lightbox
 function closeLightbox() {
+    createKeyboardEvents();
     const lightbox = document.querySelector(".lightbox-wrapper");
     document.removeEventListener('keydown', keyboardEvents);
     lightbox.innerHTML = '';

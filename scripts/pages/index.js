@@ -1,7 +1,7 @@
 import {PhotographerFactory} from "/scripts/factories/photographer.js";
 
 let activeIndex = 0;
-const firstFocusable = document.querySelector("[tabindex='0']");
+const firstFocusable = document.querySelector('#home');
 let focusableElements;
 
 // Fetch photographers datas in json file
@@ -32,10 +32,10 @@ async function init() {
     const { photographers } = await getPhotographers();
     displayData(photographers);
     focusableElements = document.querySelectorAll('a');
-    document.addEventListener('keydown', handleTabKeyDefault);  
+    document.addEventListener('keydown', handleFocus);  
 }
 
-function handleTabKeyDefault(e) {
+function handleFocus(e) {
     if(!(e.key == 'Tab') && !(e.key == 'ArrowLeft') && !(e.key == 'ArrowRight')) {
         return;
     }

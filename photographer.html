@@ -11,7 +11,7 @@
   </head>
   <body>
     <header class="header-wrapper"> 
-      <a tabindex="0" href="index.html">
+      <a tabindex="0" id="home" href="index.html">
         <img src="assets/images/logo.png" class="logo" alt="Fisheye Home Page"/>
       </a>
     </header>
@@ -22,7 +22,7 @@
           <h3 class="photographer-location"></h3>
           <h4 class="photographer-tagline"></h4>
         </div>
-        <button aria-label="Contact Me" class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button id="contact" aria-label="Contact Me" class="contact_button">Contactez-moi</button>
         <img class="photographer-portrait">
       </section>
       <div class="sorting-wrapper">
@@ -55,13 +55,13 @@
         </div>
       </div>
     </main>
-    <div class="contact_modal" role="modal" aria-labelledby="modal-title" tab-index="1" aria-modal="true" aria-hidden="true">
+    <div class="contact_modal" role="modal" aria-labelledby="modal-title" aria-modal="true" aria-hidden="true">
 			<div class="modal">
 				<header>
           <h2 class="form-photographer-name" id="modal-title">Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Close" tabindex="0"/>
+          <img src="assets/icons/close.svg" aria-label="close" tabindex="0" alt="close"/>
         </header>
-				<form onsubmit="return sendForm();">
+				<form>
 					<div class="form-data">
 						<label for="firstname">Prénom</label>
 						<input type="text" id="firstname">
@@ -78,7 +78,7 @@
 						<label for="message">Votre message</label>
 						<textarea class="form-message" type="text" id="message"></textarea>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button id="send-form" class="contact_button">Envoyer</button>
 				</form>
 			</div>
 		</div>
