@@ -122,7 +122,7 @@ class PhotographerProfileFactory {
         likesWrapper.appendChild(i);
 
         likesWrapper.addEventListener('click', function() {
-            this.handleLike();
+            handleLike(this);
         });
 
         informationsWrapper.appendChild(h2);

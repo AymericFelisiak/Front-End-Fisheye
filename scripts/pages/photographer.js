@@ -79,6 +79,15 @@ function dateComparator(a, b) {
     return new Date(a.date) - new Date(b.date);
 }
 
+function handleLike(node) {
+    const totalLikes = document.querySelector('.total-likes');
+    const like = parseInt(node.textContent, 10) + 1;
+    const p = node.querySelector('p');
+    photographer.totalLikes++;
+    totalLikes.textContent = photographer.getTotalLikes;
+    p.textContent = like;
+}
+
 function removeMedia() {
     const mediaWrapper = document.querySelector('.media-wrapper');
     while(mediaWrapper.firstChild) {
