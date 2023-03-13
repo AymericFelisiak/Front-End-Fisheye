@@ -5,6 +5,7 @@ const photographerId = urlParameter.get('photographer_id');
 let photographer;
 
 //DOM elements
+const dropDownMenu = document.querySelector('.dropdown-menu');
 const sortPopularity = document.querySelector('#popularity');
 const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
@@ -20,6 +21,8 @@ function expandMenu() {
     const chevronUp = document.querySelector('.fa-chevron-up');
     const dropDownContent = document.querySelector('.dropdown-content');
 
+    dropDownMenu.setAttribute('aria-expanded', 'true');
+
     chevronDown.style.display = "none";
     chevronUp.style.display = "block";
     dropDownContent.style.display = "block";
@@ -30,6 +33,8 @@ function retractMenu() {
     const chevronDown = document.querySelector('.fa-chevron-down');
     const chevronUp = document.querySelector('.fa-chevron-up');
     const dropDownContent = document.querySelector('.dropdown-content');
+
+    dropDownMenu.setAttribute('aria-expanded', 'false');
 
     chevronDown.removeAttribute('style');
     chevronUp.removeAttribute('style');
@@ -79,6 +84,7 @@ function dateComparator(a, b) {
     return new Date(a.date) - new Date(b.date);
 }
 
+// Function called in listener when like button under a media is clicked
 function handleLike(node) {
     const totalLikes = document.querySelector('.total-likes');
     const like = parseInt(node.textContent, 10) + 1;
@@ -88,6 +94,7 @@ function handleLike(node) {
     p.textContent = like;
 }
 
+// Removes media from lightbox
 function removeMedia() {
     const mediaWrapper = document.querySelector('.media-wrapper');
     while(mediaWrapper.firstChild) {
