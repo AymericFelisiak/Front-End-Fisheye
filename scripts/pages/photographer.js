@@ -11,9 +11,19 @@ const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
 
 // Event listeners
+dropDownMenu.addEventListener('mouseover', ariaExpandedTrue);
+dropDownMenu.addEventListener('mouseout', ariaExpandedFalse);
 sortPopularity.addEventListener('focus', expandMenu);
-sortTitle.addEventListener('blur', retractMenu);
+// sortTitle.addEventListener('blur', retractMenu);
 document.addEventListener('keydown', handleEnterKey);
+
+function ariaExpandedTrue() {
+    dropDownMenu.setAttribute('aria-expanded', 'true');
+}
+
+function ariaExpandedFalse() {
+    dropDownMenu.setAttribute('aria-expanded', 'false');
+}
 
 // Expands dropmenu when popularity button is focused
 function expandMenu() {
@@ -21,7 +31,7 @@ function expandMenu() {
     const chevronUp = document.querySelector('.fa-chevron-up');
     const dropDownContent = document.querySelector('.dropdown-content');
 
-    dropDownMenu.setAttribute('aria-expanded', 'true');
+    ariaExpandedTrue();
 
     chevronDown.style.display = "none";
     chevronUp.style.display = "block";
@@ -29,17 +39,17 @@ function expandMenu() {
 }
 
 // Retracts dropmenu when title button is unfocused
-function retractMenu() {
-    const chevronDown = document.querySelector('.fa-chevron-down');
-    const chevronUp = document.querySelector('.fa-chevron-up');
-    const dropDownContent = document.querySelector('.dropdown-content');
+// function retractMenu() {
+//     const chevronDown = document.querySelector('.fa-chevron-down');
+//     const chevronUp = document.querySelector('.fa-chevron-up');
+//     const dropDownContent = document.querySelector('.dropdown-content');
 
-    dropDownMenu.setAttribute('aria-expanded', 'false');
+//     ariaExpandedFalse();
 
-    chevronDown.removeAttribute('style');
-    chevronUp.removeAttribute('style');
-    dropDownContent.removeAttribute('style');
-}
+//     chevronDown.removeAttribute('style');
+//     chevronUp.removeAttribute('style');
+//     dropDownContent.removeAttribute('style');
+// }
 
 // Handles enter keypress on medias
 function handleEnterKey(e) {
