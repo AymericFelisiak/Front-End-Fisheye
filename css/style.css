@@ -102,3 +102,16 @@ h1 {
     width: 200px;
     height: 200px;
 }
+
+a:focus {
+    outline: none;
+}
+
+a:focus .logo{
+    border: 2px solid black;
+}
+
+a:focus .photographer-portrait {
+    background-color: black;
+    box-shadow: 0px 0px 40px 0px black;
+}

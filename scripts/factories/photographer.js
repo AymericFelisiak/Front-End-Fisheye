@@ -108,8 +108,12 @@ class PhotographerProfileFactory {
         const informationsWrapper = document.createElement('div');
         informationsWrapper.setAttribute('class', 'media-image-informations');
 
+        const titleWrapper = document.createElement('div');
+        titleWrapper.setAttribute('class', 'media-image-title-wrapper');
+        
         const h2 = document.createElement('h2');
         h2.textContent = title;
+        titleWrapper.appendChild(h2);
 
         const likesWrapper = document.createElement('div');
         likesWrapper.setAttribute('class', 'media-image-likes');
@@ -122,7 +126,7 @@ class PhotographerProfileFactory {
         likesWrapper.appendChild(p);
         likesWrapper.appendChild(i);
 
-        informationsWrapper.appendChild(h2);
+        informationsWrapper.appendChild(titleWrapper);
         informationsWrapper.appendChild(likesWrapper);
         section.appendChild(imgWrapper);
         section.appendChild(informationsWrapper);
