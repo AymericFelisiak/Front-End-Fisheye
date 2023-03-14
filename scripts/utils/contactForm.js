@@ -12,9 +12,8 @@ const sendButton = modal.querySelector('#send-form');
 // Listeners
 closeButton.addEventListener('click', closeModal);
 closeButton.addEventListener('keydown', handleEnterToClose);
-sendButton.addEventListener('submit', sendForm);
+sendButton.addEventListener('click', sendForm);
 
-sendButton.action = "";
 let activeIndex = 0;
 
 export function displayModal() {
@@ -33,7 +32,7 @@ function closeModal() {
     document.removeEventListener('keydown', handleFocus);
 }
 
-export function sendForm() {
+function sendForm() {
     const firstName = document.querySelector('#firstname');
     const lastName = document.querySelector('#lastname');
     const email = document.querySelector('#email');
@@ -75,12 +74,14 @@ function handleFocus(e) {
             if(activeIndex > 0) {
                 activeIndex--;
                 focusableElements[activeIndex].focus();
+                modal.activeElement = focusableElements[activeIndex];
             }
         }
         else {  // If Tab or ArrowRight
             if(activeIndex < focusableElements.length - 1) {
                 activeIndex++;
                 focusableElements[activeIndex].focus();
+                modal.activeElement = focusableElements[activeIndex];
             }
         }
     }
