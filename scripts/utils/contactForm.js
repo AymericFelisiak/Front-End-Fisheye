@@ -19,7 +19,6 @@ let activeIndex = 0;
 export function displayModal() {
     removeDocumentKeyboardEvents();
 	modal.style.display = "flex";
-    modal.setAttribute('aria-hidden', 'false');
     document.addEventListener('keydown', handleEscapeKey);
     document.addEventListener('keydown', handleFocus);
 }
@@ -27,7 +26,6 @@ export function displayModal() {
 function closeModal() {
     createKeyboardEvents();
     modal.style.display = "none";
-    modal.setAttribute('aria-hidden', 'true');
     document.removeEventListener('keydown', handleEscapeKey);
     document.removeEventListener('keydown', handleFocus);
 }

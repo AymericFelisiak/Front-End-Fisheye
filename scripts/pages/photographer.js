@@ -121,6 +121,7 @@ function handleFocus(e) {
             if(activeIndex > 0) {
                 activeIndex--;
                 focusableElements[activeIndex].focus();
+                
             }
         }
         else {  // If Tab or ArrowRight
