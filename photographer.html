@@ -11,7 +11,7 @@
   </head>
   <body>
     <header class="header-wrapper"> 
-      <a tabindex="0" id="home" href="index.html">
+      <a id="home" href="index.html">
         <img src="assets/images/logo.png" class="logo" alt="Fisheye Home Page"/>
       </a>
     </header>
@@ -27,7 +27,7 @@
       </section>
       <div class="sorting-wrapper">
         <p>Trier par</p>
-        <div class="dropdown-menu" aria-expanded="false "aria-label="Order by">
+        <div class="dropdown-menu" role="combobox" aria-expanded="false" aria-label="Order by">
           <button id="popularity" class="navbutton">
             <p>
               Popularité 
@@ -55,30 +55,30 @@
         </div>
       </div>
     </main>
-    <div class="contact_modal" role="modal" aria-labelledby="modal-title" aria-modal="true" aria-hidden="true">
+    <div class="contact_modal" role="modal" aria-labelledby="modal-title" aria-modal="true">
 			<div class="modal">
 				<header>
           <h2 class="form-photographer-name" id="modal-title">Contactez-moi</h2>
-          <img src="assets/icons/close.svg" aria-label="close" tabindex="0" alt="close"/>
+          <img src="assets/icons/close.svg" aria-label="close" tabindex="-1" alt="close"/>
         </header>
 				<form action="javascript:void(0);">
 					<div class="form-data">
 						<label for="firstname">Prénom</label>
-						<input type="text" id="firstname">
+						<input type="text" id="firstname" tabindex="-1">
 					</div>
           <div class="form-data">
 						<label for="lastname">Nom</label>
-						<input type="text" id="lastname">
+						<input type="text" id="lastname" tabindex="-1">
 					</div>
           <div class="form-data">
 						<label for="email">Email</label>
-						<input type="text" id="email">
+						<input type="text" id="email" tabindex="-1">
 					</div>
           <div class="form-data">
 						<label for="message">Votre message</label>
-						<textarea class="form-message" type="text" id="message"></textarea>
+						<textarea class="form-message" type="text" id="message" tabindex="-1"></textarea>
 					</div>
-          <button id="send-form" class="contact_button">Envoyer</button>
+          <button id="send-form" class="contact_button" tabindex="-1">Envoyer</button>
 				</form>
 			</div>
 		</div>

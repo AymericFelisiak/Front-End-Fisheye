@@ -4,8 +4,8 @@ import {removeDocumentKeyboardEvents} from "/scripts/pages/photographer.js";
 
 // DOM Elements
 const modal = document.querySelector(".contact_modal");
-const firstFocusable = modal.querySelector("[tabindex='0']");
-const focusableElements = modal.querySelectorAll("[tabindex='0'], input, textarea, button");
+const firstFocusable = modal.querySelector("[tabindex='-1']");
+const focusableElements = modal.querySelectorAll("[tabindex='-1']");
 const closeButton = modal.querySelector('[alt="close"]');
 const sendButton = modal.querySelector('#send-form');
 
