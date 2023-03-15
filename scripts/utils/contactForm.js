@@ -3,7 +3,7 @@ import {removeDocumentKeyboardEvents} from "/scripts/pages/photographer.js";
 
 
 // DOM Elements
-const modal = document.querySelector(".contact_modal");
+const modal = document.querySelector(".contact-modal");
 const firstFocusable = modal.querySelector("[tabindex='-1']");
 const focusableElements = modal.querySelectorAll("[tabindex='-1']");
 const closeButton = modal.querySelector('[alt="close"]');
@@ -18,14 +18,14 @@ let activeIndex = 0;
 
 export function displayModal() {
     removeDocumentKeyboardEvents();
-	modal.style.display = "flex";
+    modal.setAttribute('class', 'contact-modal displayModal');
     document.addEventListener('keydown', handleEscapeKey);
     document.addEventListener('keydown', handleFocus);
 }
 
 function closeModal() {
     createKeyboardEvents();
-    modal.style.display = "none";
+    modal.setAttribute('class', 'contact-modal');
     document.removeEventListener('keydown', handleEscapeKey);
     document.removeEventListener('keydown', handleFocus);
 }
