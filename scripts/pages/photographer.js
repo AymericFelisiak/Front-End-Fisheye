@@ -19,7 +19,11 @@ const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
 const contactButton = document.querySelector('.contact-button');
 
+// Listeners
 contactButton.addEventListener('click', displayModal);
+dropDownMenu.addEventListener('mouseover', ariaExpandedTrue);
+dropDownMenu.addEventListener('mouseout', ariaExpandedFalse);
+sortPopularity.addEventListener('focus', expandMenu);
 
 function ariaExpandedTrue() {
     dropDownMenu.setAttribute('aria-expanded', 'true');
@@ -121,7 +125,6 @@ function handleFocus(e) {
             if(activeIndex > 0) {
                 activeIndex--;
                 focusableElements[activeIndex].focus();
-                
             }
         }
         else {  // If Tab or ArrowRight
@@ -141,6 +144,10 @@ export function createKeyboardEvents() {
 export function removeDocumentKeyboardEvents() {
     document.removeEventListener('keydown', handleEnterKey);
     document.removeEventListener('keydown', handleFocus);
+}
+
+function getFocusableElements() {
+    return document.querySelectorAll("#home, #contact, .navbutton, .media-image-wrapper");
 }
 
 // Removes media from lightbox
@@ -225,11 +232,7 @@ async function init() {
     const medias = await getMedias();
     photographer = new PhotographerFactory(photographerData, medias, 'profile');
     photographer.getProfilePage();
-    focusableElements = document.querySelectorAll("#home, #contact, .navbutton, .media-image-wrapper");
-
-    dropDownMenu.addEventListener('mouseover', ariaExpandedTrue);
-    dropDownMenu.addEventListener('mouseout', ariaExpandedFalse);
-    sortPopularity.addEventListener('focus', expandMenu);
+    focusableElements = getFocusableElements();
 
     const likeDivs = document.querySelectorAll('.media-image-likes');
     likeDivs.forEach(div => {
@@ -240,18 +243,20 @@ async function init() {
 
     sortPopularity.addEventListener("click", function() {
         sortByPopularity();
+        focusableElements = getFocusableElements();
         retractMenu();
     });
 
     sortTitle.addEventListener("click", function() {
         sortByTitle();
+        focusableElements = getFocusableElements();
         retractMenu();
     });
     sortDate.addEventListener("click", function() {
         sortByDate();
+        focusableElements = getFocusableElements();
         retractMenu();
     });
-
     createKeyboardEvents();
     createLightboxEvent();
 }
