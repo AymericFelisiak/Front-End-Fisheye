@@ -74,12 +74,20 @@ function handleFocus(e) {
                 focusableElements[activeIndex].focus();
                 modal.activeElement = focusableElements[activeIndex];
             }
+            else {
+                activeIndex = focusableElements.length - 1;
+                focusableElements[activeIndex].focus();
+            }
         }
         else {  // If Tab or ArrowRight
             if(activeIndex < focusableElements.length - 1) {
                 activeIndex++;
                 focusableElements[activeIndex].focus();
                 modal.activeElement = focusableElements[activeIndex];
+            }
+            else {
+                firstFocusable.focus();
+                activeIndex = 0;
             }
         }
     }

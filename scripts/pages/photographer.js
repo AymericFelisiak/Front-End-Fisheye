@@ -126,11 +126,19 @@ function handleFocus(e) {
                 activeIndex--;
                 focusableElements[activeIndex].focus();
             }
+            else {
+                activeIndex = focusableElements.length - 1;
+                focusableElements[activeIndex].focus();
+            }
         }
         else {  // If Tab or ArrowRight
             if(activeIndex < focusableElements.length - 1) {
                 activeIndex++;
                 focusableElements[activeIndex].focus();
+            }
+            else {
+                firstFocusable.focus();
+                activeIndex = 0;
             }
         }
     }
