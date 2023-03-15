@@ -17,7 +17,7 @@ const dropDownMenu = document.querySelector('.dropdown-menu');
 const sortPopularity = document.querySelector('#popularity');
 const sortDate = document.querySelector('#date');
 const sortTitle = document.querySelector('#title');
-const contactButton = document.querySelector('.contact_button');
+const contactButton = document.querySelector('.contact-button');
 
 contactButton.addEventListener('click', displayModal);
 

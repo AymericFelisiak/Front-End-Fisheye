@@ -49,7 +49,7 @@
     font-size: 18px;
 }
 
-.contact_button {
+.contact-button {
     font-size: 20px;
     font-weight: 700;
     color: white;
@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-.contact_button:hover, .contact_button:active {
+.contact-button:hover, .contact-button:active {
     background-color: var(--secondary-softred);
     color: black;
 }
@@ -131,7 +131,7 @@ form input {
     font-family: "DM Sans", sans-serif;
 }
 
-form .contact_button {
+form .contact-button {
     margin-top: 20px;
 }
 
