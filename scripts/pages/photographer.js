@@ -252,17 +252,20 @@ async function init() {
     sortPopularity.addEventListener("click", function() {
         sortByPopularity();
         focusableElements = getFocusableElements();
+        createLightboxEvent();
         retractMenu();
     });
 
     sortTitle.addEventListener("click", function() {
         sortByTitle();
         focusableElements = getFocusableElements();
+        createLightboxEvent();
         retractMenu();
     });
     sortDate.addEventListener("click", function() {
         sortByDate();
         focusableElements = getFocusableElements();
+        createLightboxEvent();
         retractMenu();
     });
     createKeyboardEvents();
