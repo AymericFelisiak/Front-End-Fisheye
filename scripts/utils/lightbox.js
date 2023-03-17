@@ -62,18 +62,19 @@ export function createLightbox(title, path, type, i, data) {
     const leftChevron = document.createElement('i');
     leftChevron.setAttribute('class', 'fa-solid fa-chevron-left');
     leftChevron.addEventListener('click', previous);
+    leftChevron.setAttribute('aria-label', 'Previous Image');
     
     document.addEventListener('keydown', keyboardEvents);
 
     const rightChevron = document.createElement('i');
     rightChevron.setAttribute('class', 'fa-solid fa-chevron-right');
     rightChevron.addEventListener('click', next);
-
-    
+    rightChevron.setAttribute('aria-label', 'Next Image');
 
     const closeIcon = document.createElement('i');
     closeIcon.setAttribute('class', 'fa-solid fa-xmark');
     closeIcon.addEventListener('click', closeLightbox);
+    closeIcon.setAttribute('aria-label', 'Close dialog');
     
     let media = createContent(type, path);
 
