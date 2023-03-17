@@ -205,7 +205,8 @@ form .contact-button {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 100px;
     row-gap: 70px;
-    margin: 0 100px;
+    margin: 0 100px 80px 100px;
+
 }
 
 .media-content-wrapper {
@@ -284,6 +285,7 @@ form .contact-button {
     position: fixed;
     border-radius: 10px 10px 0px 0px;
     width: 380px;
+    height: 60px;
     right: 35px;
     bottom: 0px;
     align-items: center;
