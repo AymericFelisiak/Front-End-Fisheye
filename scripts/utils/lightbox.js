@@ -11,8 +11,8 @@ let medias;
 function displayLightbox() {
     removeDocumentKeyboardEvents();
     const lightbox = document.querySelector(".lightbox-wrapper");
-    document.body.style.overflow = 'hidden';
-	lightbox.style.display = "flex";
+    document.body.setAttribute('class', 'hide-scrollbar');
+    lightbox.setAttribute('class', 'lightbox-wrapper displayed');
 }
 
 // Close the lightbox
@@ -21,8 +21,8 @@ function closeLightbox() {
     const lightbox = document.querySelector(".lightbox-wrapper");
     document.removeEventListener('keydown', keyboardEvents);
     lightbox.innerHTML = '';
-    document.body.style.overflow = 'visible';
-    lightbox.style.display = "none";
+    document.body.removeAttribute('class');
+    lightbox.setAttribute('class', 'lightbox-wrapper');
 }
 
 // Creates image/video path and returns it

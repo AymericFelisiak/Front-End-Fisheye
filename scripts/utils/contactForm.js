@@ -18,7 +18,8 @@ let activeIndex = 0;
 
 export function displayModal() {
     removeDocumentKeyboardEvents();
-    modal.setAttribute('class', 'contact-modal displayModal');
+    modal.setAttribute('class', 'contact-modal displayed');
+    document.body.setAttribute('class', 'hide-scrollbar');
     document.addEventListener('keydown', handleEscapeKey);
     document.addEventListener('keydown', handleFocus);
 }
@@ -26,6 +27,7 @@ export function displayModal() {
 function closeModal() {
     createKeyboardEvents();
     modal.setAttribute('class', 'contact-modal');
+    document.body.removeAttribute('class');
     document.removeEventListener('keydown', handleEscapeKey);
     document.removeEventListener('keydown', handleFocus);
 }
