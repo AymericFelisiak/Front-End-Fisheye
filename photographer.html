@@ -55,30 +55,30 @@
         </div>
       </div>
     </main>
-    <div class="contact-modal" role="modal" aria-labelledby="modal-title" aria-modal="true">
+    <div class="contact-modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
 			<div class="modal">
 				<header>
           <h2 class="form-photographer-name" id="modal-title">Contactez-moi</h2>
-          <img src="assets/icons/close.svg" aria-label="close" tabindex="-1" alt="close"/>
+          <img src="assets/icons/close.svg" aria-label="close" tabindex="-1" alt="Close Contact Form"/>
         </header>
 				<form action="javascript:void(0);">
 					<div class="form-data">
 						<label for="firstname">Prénom</label>
-						<input type="text" id="firstname" tabindex="-1">
+						<input type="text" id="firstname" tabindex="-1" aria-labelledby="firstname" aria-label="First name">
 					</div>
           <div class="form-data">
 						<label for="lastname">Nom</label>
-						<input type="text" id="lastname" tabindex="-1">
+						<input type="text" id="lastname" tabindex="-1" aria-labelledby="lastname" aria-label="Last name">
 					</div>
           <div class="form-data">
 						<label for="email">Email</label>
-						<input type="text" id="email" tabindex="-1">
+						<input type="text" id="email" tabindex="-1" aria-labelledby="email" aria-label="Email">
 					</div>
           <div class="form-data">
 						<label for="message">Votre message</label>
-						<textarea class="form-message" type="text" id="message" tabindex="-1"></textarea>
+						<textarea class="form-message" type="text" id="message" tabindex="-1" aria-labelledby="message" aria-label="Email"></textarea>
 					</div>
-          <button id="send-form" class="contact-button" tabindex="-1">Envoyer</button>
+          <button id="send-form" class="contact-button" tabindex="-1" aria-label="Send">Envoyer</button>
 				</form>
 			</div>
 		</div>
