@@ -1,6 +1,6 @@
 import { createLightbox } from "/scripts/utils/lightbox.js";
-import {PhotographerFactory} from "/scripts/factories/photographer.js";
-import {displayModal} from "/scripts/utils/contactForm.js";
+import { PhotographerFactory } from "/scripts/factories/photographer.js";
+import { displayModal } from "/scripts/utils/contactForm.js";
 
 const firstFocusable = document.querySelector('#home');
 let focusableElements;
@@ -61,7 +61,7 @@ function retractMenu() {
 
 // Handles enter keypress on medias
 function handleEnterKey(e) {
-    if(e.key == 'Enter' && document.activeElement.tagName == 'DIV') {
+    if (e.key == 'Enter' && document.activeElement.tagName == 'DIV') {
         document.activeElement.click();
     }
 }
@@ -89,10 +89,10 @@ function likesComparator(a, b) {
 }
 
 function titleComparator(a, b) {
-    if(a.title < b.title) {
+    if (a.title < b.title) {
         return -1;
     }
-    if(a.title > b.title) {
+    if (a.title > b.title) {
         return 1;
     }
     return 0;
@@ -103,26 +103,26 @@ function dateComparator(a, b) {
 }
 
 // Function called in listener when like button under a media is clicked
-export function handleLike(node) {
+export function handleLike() {
     const totalLikes = document.querySelector('.total-likes');
-    const like = parseInt(node.textContent, 10) + 1;
-    const p = node.querySelector('p');
+    const like = parseInt(this.textContent, 10) + 1;
+    const p = this.querySelector('p');
     photographer.totalLikes++;
     totalLikes.textContent = photographer.getTotalLikes;
     p.textContent = like;
 }
 
 function handleFocus(e) {
-    if(!(e.key == 'Tab') && !(e.key == 'ArrowLeft') && !(e.key == 'ArrowRight')) {
+    if (!(e.key == 'Tab') && !(e.key == 'ArrowLeft') && !(e.key == 'ArrowRight')) {
         return;
     }
     e.preventDefault();
-    if(activeIndex == 0 && document.activeElement != firstFocusable) {
+    if (activeIndex == 0 && document.activeElement != firstFocusable) {
         firstFocusable.focus();
-    }   
+    }
     else {
-        if((e.key == 'Tab' && e.shiftKey == true) || (e.key == 'ArrowLeft')) {
-            if(activeIndex > 0) {
+        if ((e.key == 'Tab' && e.shiftKey == true) || (e.key == 'ArrowLeft')) {
+            if (activeIndex > 0) {
                 activeIndex--;
                 focusableElements[activeIndex].focus();
             }
@@ -132,7 +132,7 @@ function handleFocus(e) {
             }
         }
         else {  // If Tab or ArrowRight
-            if(activeIndex < focusableElements.length - 1) {
+            if (activeIndex < focusableElements.length - 1) {
                 activeIndex++;
                 focusableElements[activeIndex].focus();
             }
@@ -161,7 +161,7 @@ function getFocusableElements() {
 // Removes media from lightbox
 function removeMedia() {
     const mediaWrapper = document.querySelector('.media-wrapper');
-    while(mediaWrapper.firstChild) {
+    while (mediaWrapper.firstChild) {
         mediaWrapper.removeChild(mediaWrapper.lastChild);
     }
 }
@@ -178,37 +178,37 @@ function createLightboxEvent() {
 
 // Links EventListener to the node
 function addLightboxListener(i, node) {
-    const {title, video, image} = photographer.getPhotographerMedias[i];
+    const { title, video, image } = photographer.getPhotographerMedias[i];
     const path = getPath(video, image);
-    node.addEventListener('click', function() {
+    node.addEventListener('click', function () {
         createLightbox(title, path, video, i, photographer.getPhotographerMedias);
     });
 }
 
 // Creates image/video path and returns it
 function getPath(video, image) {
-    if(video == undefined) {
+    if (video == undefined) {
         return `assets/images/${photographerId}/${image}`;
-    } 
+    }
     else return `assets/images/${photographerId}/${video}`;
 }
 
 // Gets photographer by id
 async function getPhotographer() {
-    
+
     let photographerData = await fetch("./data/photographers.json").then(dataSet => {
-            if(!dataSet.ok) {
-                throw new Error('File path incorrect');
-            }
-            return dataSet.json().then(data => {
-                for(const photographer of data.photographers) {
-                    if(photographer.id == photographerId) {
-                        return photographer;
-                    }
-                }
-            })
+        if (!dataSet.ok) {
+            throw new Error('File path incorrect');
         }
-    ).catch(error => 
+        return dataSet.json().then(data => {
+            for (const photographer of data.photographers) {
+                if (photographer.id == photographerId) {
+                    return photographer;
+                }
+            }
+        })
+    }
+    ).catch(error =>
         console.error('Fetch error : ', error)
     );
     return photographerData;
@@ -218,25 +218,25 @@ async function getPhotographer() {
 async function getMedias() {
     const medias = [];
     await fetch("./data/photographers.json").then(dataSet => {
-            if(!dataSet.ok) {
-                throw new Error('File path incorrect');
-            }
-            return dataSet.json().then(data => {
-                for(const media of data.media) {
-                    if(media.photographerId == photographerId) {
-                        medias.push(media);
-                    }
-                }
-            })
+        if (!dataSet.ok) {
+            throw new Error('File path incorrect');
         }
-    ).catch(error => 
+        return dataSet.json().then(data => {
+            for (const media of data.media) {
+                if (media.photographerId == photographerId) {
+                    medias.push(media);
+                }
+            }
+        })
+    }
+    ).catch(error =>
         console.error('Fetch error : ', error)
     );
     return medias;
 }
 
 async function init() {
-    const photographerData  = await getPhotographer();
+    const photographerData = await getPhotographer();
     const medias = await getMedias();
     photographer = new PhotographerFactory(photographerData, medias, 'profile');
     photographer.getProfilePage();
@@ -244,25 +244,24 @@ async function init() {
 
     const likeDivs = document.querySelectorAll('.media-image-likes');
     likeDivs.forEach(div => {
-        div.addEventListener('click', function() {
-            handleLike(this);
-        });
-    });
+        div.addEventListener('click', handleLike, { once: true })
+    }
+    );
 
-    sortPopularity.addEventListener("click", function() {
+    sortPopularity.addEventListener("click", function () {
         sortByPopularity();
         focusableElements = getFocusableElements();
         createLightboxEvent();
         retractMenu();
     });
 
-    sortTitle.addEventListener("click", function() {
+    sortTitle.addEventListener("click", function () {
         sortByTitle();
         focusableElements = getFocusableElements();
         createLightboxEvent();
         retractMenu();
     });
-    sortDate.addEventListener("click", function() {
+    sortDate.addEventListener("click", function () {
         sortByDate();
         focusableElements = getFocusableElements();
         createLightboxEvent();
