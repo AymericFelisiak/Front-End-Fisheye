@@ -157,6 +157,17 @@ class PhotographerProfileFactory {
         });
     }
 
+    addLike(id) {
+        const medias = this.getPhotographerMedias;
+
+        medias.forEach(media => {
+            if(media.id == id) {
+                media.likes++;
+                this.totalLikes++;
+            }
+        });
+    }
+
     getProfilePage() {
         this.getProfileInformationsDOM();
         this.getMedia();

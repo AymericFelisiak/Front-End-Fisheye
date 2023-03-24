@@ -107,7 +107,8 @@ export function handleLike() {
     const totalLikes = document.querySelector('.total-likes');
     const like = parseInt(this.textContent, 10) + 1;
     const p = this.querySelector('p');
-    photographer.totalLikes++;
+    const id = this.parentElement.parentElement.querySelector('[id]').id;
+    photographer.addLike(id);
     totalLikes.textContent = photographer.getTotalLikes;
     p.textContent = like;
 }
@@ -176,6 +177,14 @@ function createLightboxEvent() {
     });
 }
 
+function createLikeEvent() {
+    const likeDivs = document.querySelectorAll('.media-image-likes');
+    likeDivs.forEach(div => {
+        div.addEventListener('click', handleLike, { once: true })
+    }
+    );
+}
+
 // Links EventListener to the node
 function addLightboxListener(i, node) {
     const { title, video, image } = photographer.getPhotographerMedias[i];
@@ -242,16 +251,11 @@ async function init() {
     photographer.getProfilePage();
     focusableElements = getFocusableElements();
 
-    const likeDivs = document.querySelectorAll('.media-image-likes');
-    likeDivs.forEach(div => {
-        div.addEventListener('click', handleLike, { once: true })
-    }
-    );
-
     sortPopularity.addEventListener("click", function () {
         sortByPopularity();
         focusableElements = getFocusableElements();
         createLightboxEvent();
+        createLikeEvent();
         retractMenu();
     });
 
@@ -259,16 +263,19 @@ async function init() {
         sortByTitle();
         focusableElements = getFocusableElements();
         createLightboxEvent();
+        createLikeEvent();
         retractMenu();
     });
     sortDate.addEventListener("click", function () {
         sortByDate();
         focusableElements = getFocusableElements();
         createLightboxEvent();
+        createLikeEvent();
         retractMenu();
     });
     createKeyboardEvents();
     createLightboxEvent();
+    createLikeEvent();
 }
 
 init();
