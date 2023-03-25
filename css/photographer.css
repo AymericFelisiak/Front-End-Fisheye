@@ -58,9 +58,10 @@
     cursor: pointer;
 }
 
-.contact-button:hover, .contact-button:active {
+.contact-button:hover, .contact-button:active, .contact-button:focus {
     background-color: var(--secondary-softred);
     color: black;
+    outline: none;
 }
 
 .modal {
