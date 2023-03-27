@@ -1,4 +1,4 @@
-# Base de code du projet P6 - Parcours Front-end
+# Projet 6 - Fisheye
 
 ## Lien Github Pages
 
