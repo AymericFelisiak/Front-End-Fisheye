@@ -1,4 +1,4 @@
-import {PhotographerFactory} from "/Front-End-Fisheye/factories/photographer.js";
+import {PhotographerFactory} from "../factories/photographer.js";
 
 let activeIndex = 0;
 const firstFocusable = document.querySelector('#home');
