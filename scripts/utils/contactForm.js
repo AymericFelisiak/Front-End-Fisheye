@@ -1,5 +1,5 @@
-import {createKeyboardEvents} from "/scripts/pages/photographer.js";
-import {removeDocumentKeyboardEvents} from "/scripts/pages/photographer.js";
+import {createKeyboardEvents} from "../pages/photographer.js";
+import {removeDocumentKeyboardEvents} from "../pages/photographer.js";
 
 
 // DOM Elements

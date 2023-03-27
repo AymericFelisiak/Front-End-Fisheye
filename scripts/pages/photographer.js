@@ -1,6 +1,6 @@
-import { createLightbox } from "/scripts/utils/lightbox.js";
-import { PhotographerFactory } from "/scripts/factories/photographer.js";
-import { displayModal } from "/scripts/utils/contactForm.js";
+import { createLightbox } from "../utils/lightbox.js";
+import { PhotographerFactory } from "../factories/photographer.js";
+import { displayModal } from "../utils/contactForm.js";
 
 const firstFocusable = document.querySelector('#home');
 let focusableElements;

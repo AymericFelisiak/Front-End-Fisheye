@@ -1,5 +1,5 @@
-import { createKeyboardEvents } from "/scripts/pages/photographer.js";
-import { removeDocumentKeyboardEvents } from "/scripts/pages/photographer.js";
+import { createKeyboardEvents } from "../pages/photographer.js";
+import { removeDocumentKeyboardEvents } from "../pages/photographer.js";
 
 // Current index (in the medias array)
 let index;
@@ -168,7 +168,6 @@ function keyboardEvents(e) {
     }
     if (e.key == 'ArrowRight') {
         next();
-        console.log('ok');
     }
     if (e.key == 'Escape') {
         closeLightbox();
