@@ -1,6 +1,10 @@
 # Base de code du projet P6 - Parcours Front-end
 
-## Démarrer le projet
+## Lien Github Pages
 
-Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
+https://aymericfelisiak.github.io/Front-End-Fisheye/
 
+## Navigation clavier
+
+Tab/Flèche de droite pour focus l'élément suivant.
+Shift+Tab/Flèche de gauche pour focus l'élément précédent.
