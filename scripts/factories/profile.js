@@ -1,6 +1,8 @@
+// Factory for photographer profile
 export function profileFactory(data) {
-    const {price, photographerId, id, title, image, video, likes, date  } = data;
+    const {photographerId, id, title, image, video, likes, date  } = data;
 
+    // Creates media thumbnail from the data passed when factory is created
     function getThumbnail() {
         const section = document.createElement('section');
         this.totalLikes = this.totalLikes + likes;
@@ -10,8 +12,11 @@ export function profileFactory(data) {
         const imgWrapper = document.createElement('div');
         imgWrapper.setAttribute('class', 'media-image-wrapper');
         imgWrapper.setAttribute('tabindex', '0');
+        
         let img;
         let path;
+
+        // Defines if the media is a video or a photo
         if(video == undefined) {
             path = `assets/images/${photographerId}/${image}`;
             img = document.createElement('img');

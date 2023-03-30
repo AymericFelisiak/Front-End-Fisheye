@@ -1,8 +1,7 @@
-import {PhotographerFactory} from "../factories/photographer.js";
-import {photographerFactory} from "../factories/newfactory.js";
+import { photographerFactory } from "../factories/photographer.js";
 
-let activeIndex = 0;
 const firstFocusable = document.querySelector('#home');
+let activeIndex = 0;
 let focusableElements;
 
 // Fetch photographers datas in json file
@@ -19,10 +18,10 @@ async function getPhotographers() {
     return photographers;
 }
 
+// Creates every photographers' cards
 async function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer-section");
     photographers.forEach((photographer) => {
-        // const photographerModel = new PhotographerFactory(photographer, undefined, 'index');
         const photographerModel = photographerFactory(photographer);
         const userCardDOM = photographerModel.getUserCardDOM();
         photographersSection.appendChild(userCardDOM);
@@ -30,7 +29,6 @@ async function displayData(photographers) {
 }
 
 async function init() {
-    // Récupère les datas des photographes  
     const { photographers } = await getPhotographers();
     displayData(photographers);
     focusableElements = document.querySelectorAll('a');

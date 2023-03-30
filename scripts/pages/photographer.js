@@ -1,10 +1,9 @@
 import { createLightbox } from "../utils/lightbox.js";
-import { PhotographerFactory } from "../factories/photographer.js";
-import { photographerFactory } from "../factories/newfactory.js";
+import { photographerFactory } from "../factories/photographer.js";
 import { profileFactory } from "../factories/profile.js";
-
 import { displayModal } from "../utils/contactForm.js";
 
+export let medias;
 const firstFocusable = document.querySelector('#home');
 let focusableElements;
 let activeIndex = 0;
@@ -13,7 +12,6 @@ let activeIndex = 0;
 const url = window.location.search;
 const urlParameter = new URLSearchParams(url);
 const photographerId = urlParameter.get('photographer_id');
-let photographer;
 
 //DOM elements
 const dropDownMenu = document.querySelector('.dropdown-menu');
@@ -28,10 +26,12 @@ dropDownMenu.addEventListener('mouseover', ariaExpandedTrue);
 dropDownMenu.addEventListener('mouseout', ariaExpandedFalse);
 sortPopularity.addEventListener('focus', expandMenu);
 
+// Sets aria-expanded to true when the dropdown menu is expanded
 function ariaExpandedTrue() {
     dropDownMenu.setAttribute('aria-expanded', 'true');
 }
 
+// Sets aria-expanded to false when the drop downmenu is collapsed
 function ariaExpandedFalse() {
     dropDownMenu.setAttribute('aria-expanded', 'false');
 }
@@ -70,21 +70,21 @@ function handleEnterKey(e) {
 }
 
 function sortByPopularity() {
-    photographer.getPhotographerMedias.sort(likesComparator);
+    medias.sort(likesComparator);
     removeMedia();
-    photographer.getMedia();
+    updateMedia();
 }
 
 function sortByDate() {
-    photographer.getPhotographerMedias.sort(dateComparator);
+    medias.sort(dateComparator);
     removeMedia();
-    photographer.getMedia();
+    updateMedia();
 }
 
 function sortByTitle() {
-    photographer.getPhotographerMedias.sort(titleComparator);
+    medias.sort(titleComparator);
     removeMedia();
-    photographer.getMedia();
+    updateMedia();
 }
 
 function likesComparator(a, b) {
@@ -105,17 +105,27 @@ function dateComparator(a, b) {
     return new Date(a.date) - new Date(b.date);
 }
 
+function addLike(id) {
+    medias.forEach(media => {
+        if(media.id == id) {
+            media.likes++;
+        }
+    });
+}
+
 // Function called in listener when like button under a media is clicked
 export function handleLike() {
-    const totalLikes = document.querySelector('.total-likes');
+    const totalLikesElement = document.querySelector('.total-likes');
+    const totalLikes = parseInt(totalLikesElement.textContent, 10) + 1;
     const like = parseInt(this.textContent, 10) + 1;
     const p = this.querySelector('p');
     const id = this.parentElement.parentElement.querySelector('[id]').id;
-    photographer.addLike(id);
-    totalLikes.textContent = photographer.getTotalLikes;
+    addLike(id);
+    totalLikesElement.textContent = totalLikes;
     p.textContent = like;
 }
 
+// Handles keyboard events for the focus in the profile page
 function handleFocus(e) {
     if (!(e.key == 'Tab') && !(e.key == 'ArrowLeft') && !(e.key == 'ArrowRight')) {
         return;
@@ -190,10 +200,10 @@ function createLikeEvent() {
 
 // Links EventListener to the node
 function addLightboxListener(i, node) {
-    const { title, video, image } = photographer.getPhotographerMedias[i];
+    const { title, video, image } = medias[i];
     const path = getPath(video, image);
     node.addEventListener('click', function () {
-        createLightbox(title, path, video, i, photographer.getPhotographerMedias);
+        createLightbox(title, path, video, i);
     });
 }
 
@@ -203,6 +213,17 @@ function getPath(video, image) {
         return `assets/images/${photographerId}/${image}`;
     }
     else return `assets/images/${photographerId}/${video}`;
+}
+
+// Updating media galery after sort
+function updateMedia() {
+    const mediaWrapper = document.querySelector('.media-wrapper');
+
+    medias.forEach(media => {
+        const profileModel = profileFactory(media);
+        const thumbnail = profileModel.getThumbnail();
+        mediaWrapper.appendChild(thumbnail);
+    });
 }
 
 // Gets photographer by id
@@ -247,6 +268,7 @@ async function getMedias() {
     return medias;
 }
 
+// Displays total likes and price per day for the photographer
 async function displayTotalLikes(totalLikes) {
     const likeDiv = document.querySelector(".photographer-like-wrapper");
     const like = document.querySelector(".total-likes");
@@ -259,7 +281,8 @@ async function displayTotalLikes(totalLikes) {
     like.textContent = totalLikes;
 }
 
-async function displayData(photographer, medias) {
+// Displays profile data after fetch
+async function displayData(photographer) {
     const mediaWrapper = document.querySelector('.media-wrapper');
     const photographerModel = photographerFactory(photographer);
     photographerModel.getProfileInformationsDOM();
@@ -277,10 +300,8 @@ async function displayData(photographer, medias) {
 
 async function init() {
     const photographerData = await getPhotographer();
-    const medias = await getMedias();
-    // photographer = new PhotographerFactory(photographerData, medias, 'profile');
-    // photographer.getProfilePage();
-    displayData(photographerData, medias);
+    medias = await getMedias();
+    displayData(photographerData);
     focusableElements = getFocusableElements();
 
     sortPopularity.addEventListener("click", function () {

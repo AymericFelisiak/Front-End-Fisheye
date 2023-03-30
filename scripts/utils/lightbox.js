@@ -1,11 +1,9 @@
 import { createKeyboardEvents } from "../pages/photographer.js";
 import { removeDocumentKeyboardEvents } from "../pages/photographer.js";
+import { medias } from "../pages/photographer.js";
 
 // Current index (in the medias array)
 let index;
-
-// All the medias of the photographer
-let medias;
 
 const lightbox = document.querySelector(".lightbox-wrapper");
 let focusIndex = 0;
@@ -39,9 +37,8 @@ function getImagePath() {
 }
 
 // Function to create the lightbox when an image is clicked
-export function createLightbox(title, path, type, i, data) {
+export function createLightbox(title, path, type, i) {
     index = i;
-    medias = data;
     const lightbox = document.querySelector(".lightbox-wrapper");
 
     const leftWrapper = document.createElement('div');
@@ -145,12 +142,32 @@ function next() {
         lightBoxTitle.textContent = title;
         lightboxMediaWrapper.appendChild(media);
     }
+    else {
+        index = 0;
+        const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
+        const lightBoxTitle = document.querySelector('.lightbox-image-title');
+        const { title, video } = medias[index];
+        removeContent();
+        const media = createContent(video, getImagePath());
+        lightBoxTitle.textContent = title;
+        lightboxMediaWrapper.appendChild(media);
+    }
 }
 
 // Displays previous content in lightbox
 function previous() {
     if (index > 0) {
         index = index - 1;
+        const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
+        const lightBoxTitle = document.querySelector('.lightbox-image-title');
+        const { title, video } = medias[index];
+        removeContent();
+        const media = createContent(video, getImagePath());
+        lightBoxTitle.textContent = title;
+        lightboxMediaWrapper.appendChild(media);
+    }
+    else {
+        index = medias.length - 1;
         const lightboxMediaWrapper = document.querySelector('.lightbox-media-wrapper');
         const lightBoxTitle = document.querySelector('.lightbox-image-title');
         const { title, video } = medias[index];
