@@ -1,4 +1,5 @@
 import {PhotographerFactory} from "../factories/photographer.js";
+import {photographerFactory} from "../factories/newfactory.js";
 
 let activeIndex = 0;
 const firstFocusable = document.querySelector('#home');
@@ -21,7 +22,8 @@ async function getPhotographers() {
 async function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer-section");
     photographers.forEach((photographer) => {
-        const photographerModel = new PhotographerFactory(photographer, undefined, 'index');
+        // const photographerModel = new PhotographerFactory(photographer, undefined, 'index');
+        const photographerModel = photographerFactory(photographer);
         const userCardDOM = photographerModel.getUserCardDOM();
         photographersSection.appendChild(userCardDOM);
     });

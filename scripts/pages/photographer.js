@@ -1,5 +1,8 @@
 import { createLightbox } from "../utils/lightbox.js";
 import { PhotographerFactory } from "../factories/photographer.js";
+import { photographerFactory } from "../factories/newfactory.js";
+import { profileFactory } from "../factories/profile.js";
+
 import { displayModal } from "../utils/contactForm.js";
 
 const firstFocusable = document.querySelector('#home');
@@ -244,11 +247,40 @@ async function getMedias() {
     return medias;
 }
 
+async function displayTotalLikes(totalLikes) {
+    const likeDiv = document.querySelector(".photographer-like-wrapper");
+    const like = document.querySelector(".total-likes");
+    
+    const heart = document.createElement("i");
+
+    heart.setAttribute("class", "fa-solid fa-heart")
+    likeDiv.appendChild(heart);
+
+    like.textContent = totalLikes;
+}
+
+async function displayData(photographer, medias) {
+    const mediaWrapper = document.querySelector('.media-wrapper');
+    const photographerModel = photographerFactory(photographer);
+    photographerModel.getProfileInformationsDOM();
+
+    let totalLikes = 0;
+
+    medias.forEach(media => {
+        const profileModel = profileFactory(media);
+        const thumbnail = profileModel.getThumbnail();
+        totalLikes = totalLikes + parseInt(profileModel.likes, 10);
+        mediaWrapper.appendChild(thumbnail);
+    });
+    displayTotalLikes(totalLikes);
+}
+
 async function init() {
     const photographerData = await getPhotographer();
     const medias = await getMedias();
-    photographer = new PhotographerFactory(photographerData, medias, 'profile');
-    photographer.getProfilePage();
+    // photographer = new PhotographerFactory(photographerData, medias, 'profile');
+    // photographer.getProfilePage();
+    displayData(photographerData, medias);
     focusableElements = getFocusableElements();
 
     sortPopularity.addEventListener("click", function () {
